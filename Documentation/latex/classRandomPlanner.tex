@@ -1,0 +1,497 @@
+\hypertarget{classRandomPlanner}{}\section{Random\+Planner Class Reference}
+\label{classRandomPlanner}\index{Random\+Planner@{Random\+Planner}}
+
+
+The random planner tries to find a path to the goal by randomly moving in the environment (only orthogonal moves are legal). If the planner can not find an acceptable solution in less than max\+\_\+step\+\_\+number, the search should fail. The random planner, while being erratic, has a short memory, and it will never attempt to visit a cell that was visited in the last sqrt(max\+\_\+step\+\_\+number) steps except if this is the only available option.  
+
+
+
+
+{\ttfamily \#include $<$Random\+Planner.\+h$>$}
+
+\subsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\hyperlink{classRandomPlanner_a9eb31cb3b21cd5e50fde093f7a25a768}{Random\+Planner} ()\hypertarget{classRandomPlanner_a9eb31cb3b21cd5e50fde093f7a25a768}{}\label{classRandomPlanner_a9eb31cb3b21cd5e50fde093f7a25a768}
+
+\begin{DoxyCompactList}\small\item\em Default Constructor. \end{DoxyCompactList}\item 
+\hyperlink{classRandomPlanner_a927c717d77534e0db8ee2401b8e8b0ed}{Random\+Planner} (std\+::vector$<$ std\+::vector$<$ int $>$$>$, std\+::pair$<$ int, int $>$, std\+::pair$<$ int, int $>$)
+\begin{DoxyCompactList}\small\item\em Parameterised constructor to take map, starting position and goal position of robot. \end{DoxyCompactList}\item 
+\hyperlink{structNode}{Node} \hyperlink{classRandomPlanner_a9bc4c7235eea43f4c7ff7c1c55b81511}{move\+Up} (\hyperlink{structNode}{Node})
+\begin{DoxyCompactList}\small\item\em to Move in up direction, updates current node \end{DoxyCompactList}\item 
+\hyperlink{structNode}{Node} \hyperlink{classRandomPlanner_a37871c2c07e26640fb0619db0299a3ba}{move\+Left} (\hyperlink{structNode}{Node})
+\begin{DoxyCompactList}\small\item\em TO move in left location. \end{DoxyCompactList}\item 
+\hyperlink{structNode}{Node} \hyperlink{classRandomPlanner_a6ac0a6fdc7dd5c2c2576ace8f26d87f5}{move\+Down} (\hyperlink{structNode}{Node})
+\begin{DoxyCompactList}\small\item\em TO move in +y direction. \end{DoxyCompactList}\item 
+\hyperlink{structNode}{Node} \hyperlink{classRandomPlanner_af2b9b922d2d1b774dac4017024eda536}{move\+Right} (\hyperlink{structNode}{Node})
+\begin{DoxyCompactList}\small\item\em to move in +x direction \end{DoxyCompactList}\item 
+std\+::pair$<$ int, int $>$ \hyperlink{classRandomPlanner_af1a1d04d84a1060fa760a2546788827e}{get\+Goal} ()\hypertarget{classRandomPlanner_af1a1d04d84a1060fa760a2546788827e}{}\label{classRandomPlanner_af1a1d04d84a1060fa760a2546788827e}
+
+\begin{DoxyCompactList}\small\item\em to fetch goal location \end{DoxyCompactList}\item 
+std\+::pair$<$ int, int $>$ \hyperlink{classRandomPlanner_a0fb252bb39766353533c389f7392a6fd}{get\+Start} ()\hypertarget{classRandomPlanner_a0fb252bb39766353533c389f7392a6fd}{}\label{classRandomPlanner_a0fb252bb39766353533c389f7392a6fd}
+
+\begin{DoxyCompactList}\small\item\em to get starting location of the robot \end{DoxyCompactList}\item 
+bool \hyperlink{classRandomPlanner_a2311066614013953f01b0658652e6b5e}{is\+Obstacle} (std\+::pair$<$ int, int $>$)
+\begin{DoxyCompactList}\small\item\em To check if robot is in defined boundary. \end{DoxyCompactList}\item 
+int \hyperlink{classRandomPlanner_a1e0ae120157b58fb866da2305f80b86a}{get\+X\+Length} ()
+\begin{DoxyCompactList}\small\item\em getter function for max x of the map \end{DoxyCompactList}\item 
+int \hyperlink{classRandomPlanner_a01279711baee1ba008b280e5ec291aec}{get\+Y\+Length} ()
+\begin{DoxyCompactList}\small\item\em getter function for Y length \end{DoxyCompactList}\item 
+int \hyperlink{classRandomPlanner_af1ac348e7631e5e8817283d1148c3170}{random\+Direction} ()
+\begin{DoxyCompactList}\small\item\em to give random direction everytime we run this function in range of 1 to 4 \end{DoxyCompactList}\item 
+void \hyperlink{classRandomPlanner_a97938382e5e03ff5e3a6728bac85af86}{update\+Last\+Steps} (\hyperlink{structNode}{Node})
+\begin{DoxyCompactList}\small\item\em update the last steps queue to maintain memory \end{DoxyCompactList}\item 
+bool \hyperlink{classRandomPlanner_a8d8b412bf2830bd5e8c0552579ee4ac7}{check\+Last\+N\+Steps} (\hyperlink{structNode}{Node})
+\begin{DoxyCompactList}\small\item\em To check if input node is in memory or not. \end{DoxyCompactList}\item 
+bool \hyperlink{classRandomPlanner_a8a9000b5fc9027440301639d7509c435}{check\+Last\+N\+Positions} (std\+::pair$<$ int, int $>$)
+\begin{DoxyCompactList}\small\item\em to check if robot visited these positions as stored in its memory \end{DoxyCompactList}\item 
+void \hyperlink{classRandomPlanner_aef5cf09de25f1532988f565af19ac390}{print\+Path} ()\hypertarget{classRandomPlanner_aef5cf09de25f1532988f565af19ac390}{}\label{classRandomPlanner_aef5cf09de25f1532988f565af19ac390}
+
+\begin{DoxyCompactList}\small\item\em to print the robot path if found \end{DoxyCompactList}\item 
+std\+::vector$<$ std\+::pair$<$ int, int $>$ $>$ \hyperlink{classRandomPlanner_a8c8eed29ca324e01b4659a3c99b4e14d}{search} (std\+::vector$<$ std\+::vector$<$ int $>$$>$, std\+::pair$<$ int, int $>$, std\+::pair$<$ int, int $>$)
+\begin{DoxyCompactList}\small\item\em To search the path by randomly moving in map with constraint of not moving to node which is visited already in last N steps unless its the only choice robot has. \end{DoxyCompactList}\item 
+void \hyperlink{classRandomPlanner_a85e06fe4a9140bd8114161e7c42a9b7d}{set\+Goal\+Node} ()
+\begin{DoxyCompactList}\small\item\em Sets goal \hyperlink{structNode}{Node} as per given value,location. \end{DoxyCompactList}\item 
+void \hyperlink{classRandomPlanner_afb341442e9b2629873f6e8c220ea2846}{set\+Start\+Node} ()
+\begin{DoxyCompactList}\small\item\em Sets Start \hyperlink{structNode}{Node} as per given value and location. \end{DoxyCompactList}\item 
+std\+::vector$<$ std\+::pair$<$ int, int $>$ $>$ \hyperlink{classRandomPlanner_a33348010a426948b7f849bff67439e4e}{find\+Neighbors} (std\+::pair$<$ int, int $>$)
+\begin{DoxyCompactList}\small\item\em Find possible Neighbors around the node. \end{DoxyCompactList}\item 
+bool \hyperlink{classRandomPlanner_a529a590b4b69c8a25e26502251f4d244}{all\+Neighbors\+In\+Memory} (std\+::pair$<$ int, int $>$)
+\begin{DoxyCompactList}\small\item\em C\+Heck if the neighbors are in short memory of old steps taken. \end{DoxyCompactList}\item 
+std\+::vector$<$ std\+::pair$<$ int, int $>$ $>$ \hyperlink{classRandomPlanner_aa743dd84e235919e8dd6c63c5c7eb1e8}{get\+Path} ()
+\begin{DoxyCompactList}\small\item\em getter function for found path \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\subsection{Detailed Description}
+The random planner tries to find a path to the goal by randomly moving in the environment (only orthogonal moves are legal). If the planner can not find an acceptable solution in less than max\+\_\+step\+\_\+number, the search should fail. The random planner, while being erratic, has a short memory, and it will never attempt to visit a cell that was visited in the last sqrt(max\+\_\+step\+\_\+number) steps except if this is the only available option. 
+
+\subsection{Constructor \& Destructor Documentation}
+\index{Random\+Planner@{Random\+Planner}!Random\+Planner@{Random\+Planner}}
+\index{Random\+Planner@{Random\+Planner}!Random\+Planner@{Random\+Planner}}
+\subsubsection[{\texorpdfstring{Random\+Planner(std\+::vector$<$ std\+::vector$<$ int $>$$>$, std\+::pair$<$ int, int $>$, std\+::pair$<$ int, int $>$)}{RandomPlanner(std::vector< std::vector< int >>, std::pair< int, int >, std::pair< int, int >)}}]{\setlength{\rightskip}{0pt plus 5cm}Random\+Planner\+::\+Random\+Planner (
+\begin{DoxyParamCaption}
+\item[{std\+::vector$<$ std\+::vector$<$ int $>$$>$}]{map, }
+\item[{std\+::pair$<$ int, int $>$}]{robot\+\_\+pose, }
+\item[{std\+::pair$<$ int, int $>$}]{goal\+\_\+pose}
+\end{DoxyParamCaption}
+)}\hypertarget{classRandomPlanner_a927c717d77534e0db8ee2401b8e8b0ed}{}\label{classRandomPlanner_a927c717d77534e0db8ee2401b8e8b0ed}
+
+
+Parameterised constructor to take map, starting position and goal position of robot. 
+
+Parameterised constructor which initializes planner with input.
+
+
+\begin{DoxyParams}{Parameters}
+{\em std\+::vector$<$std\+::vector$>$} & world map \\
+\hline
+{\em std\+::pair} & starting position \\
+\hline
+{\em std\+::pair} & goal position\\
+\hline
+{\em map} & \\
+\hline
+{\em robot\+\_\+pose} & starting location of robot \\
+\hline
+{\em goal} & goal location of robot \\
+\hline
+\end{DoxyParams}
+size of the map in y direction 
+
+\subsection{Member Function Documentation}
+\index{Random\+Planner@{Random\+Planner}!all\+Neighbors\+In\+Memory@{all\+Neighbors\+In\+Memory}}
+\index{all\+Neighbors\+In\+Memory@{all\+Neighbors\+In\+Memory}!Random\+Planner@{Random\+Planner}}
+\subsubsection[{\texorpdfstring{all\+Neighbors\+In\+Memory(std\+::pair$<$ int, int $>$)}{allNeighborsInMemory(std::pair< int, int >)}}]{\setlength{\rightskip}{0pt plus 5cm}bool Random\+Planner\+::all\+Neighbors\+In\+Memory (
+\begin{DoxyParamCaption}
+\item[{std\+::pair$<$ int, int $>$}]{position}
+\end{DoxyParamCaption}
+)}\hypertarget{classRandomPlanner_a529a590b4b69c8a25e26502251f4d244}{}\label{classRandomPlanner_a529a590b4b69c8a25e26502251f4d244}
+
+
+C\+Heck if the neighbors are in short memory of old steps taken. 
+
+for checking if any of the neighbors are visited recently ornot
+
+
+\begin{DoxyParams}{Parameters}
+{\em std\+::pair} & position\\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+true if any of the neighbor is in memory (last\+Nsteps)
+\end{DoxyReturn}
+
+\begin{DoxyParams}{Parameters}
+{\em position} & \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+true if any one of the neighbot was in memory ,else false 
+\end{DoxyReturn}
+\index{Random\+Planner@{Random\+Planner}!check\+Last\+N\+Positions@{check\+Last\+N\+Positions}}
+\index{check\+Last\+N\+Positions@{check\+Last\+N\+Positions}!Random\+Planner@{Random\+Planner}}
+\subsubsection[{\texorpdfstring{check\+Last\+N\+Positions(std\+::pair$<$ int, int $>$)}{checkLastNPositions(std::pair< int, int >)}}]{\setlength{\rightskip}{0pt plus 5cm}bool Random\+Planner\+::check\+Last\+N\+Positions (
+\begin{DoxyParamCaption}
+\item[{std\+::pair$<$ int, int $>$}]{position}
+\end{DoxyParamCaption}
+)}\hypertarget{classRandomPlanner_a8a9000b5fc9027440301639d7509c435}{}\label{classRandomPlanner_a8a9000b5fc9027440301639d7509c435}
+
+
+to check if robot visited these positions as stored in its memory 
+
+To check if the input position is visited recently or not.
+
+
+\begin{DoxyParams}{Parameters}
+{\em std\+::pair$<$int,int$>$} & position of the robot\\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+
+\end{DoxyReturn}
+
+\begin{DoxyParams}{Parameters}
+{\em position} & to check if position is visited\\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+false if not visited, true if visited recently 
+\end{DoxyReturn}
+\index{Random\+Planner@{Random\+Planner}!check\+Last\+N\+Steps@{check\+Last\+N\+Steps}}
+\index{check\+Last\+N\+Steps@{check\+Last\+N\+Steps}!Random\+Planner@{Random\+Planner}}
+\subsubsection[{\texorpdfstring{check\+Last\+N\+Steps(\+Node)}{checkLastNSteps(Node)}}]{\setlength{\rightskip}{0pt plus 5cm}bool Random\+Planner\+::check\+Last\+N\+Steps (
+\begin{DoxyParamCaption}
+\item[{{\bf Node}}]{to\+Search}
+\end{DoxyParamCaption}
+)}\hypertarget{classRandomPlanner_a8d8b412bf2830bd5e8c0552579ee4ac7}{}\label{classRandomPlanner_a8d8b412bf2830bd5e8c0552579ee4ac7}
+
+
+To check if input node is in memory or not. 
+
+Check if input node is visited already in recent steps.
+
+
+\begin{DoxyParams}{Parameters}
+{\em \hyperlink{structNode}{Node}} & \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+true if the node is in memory
+\end{DoxyReturn}
+
+\begin{DoxyParams}{Parameters}
+{\em to\+Search} & \hyperlink{structNode}{Node} to searched\\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+false if not visited else true i.,e visited recently 
+\end{DoxyReturn}
+\index{Random\+Planner@{Random\+Planner}!find\+Neighbors@{find\+Neighbors}}
+\index{find\+Neighbors@{find\+Neighbors}!Random\+Planner@{Random\+Planner}}
+\subsubsection[{\texorpdfstring{find\+Neighbors(std\+::pair$<$ int, int $>$)}{findNeighbors(std::pair< int, int >)}}]{\setlength{\rightskip}{0pt plus 5cm}std\+::vector$<$ std\+::pair$<$ int, int $>$ $>$ Random\+Planner\+::find\+Neighbors (
+\begin{DoxyParamCaption}
+\item[{std\+::pair$<$ int, int $>$}]{position}
+\end{DoxyParamCaption}
+)}\hypertarget{classRandomPlanner_a33348010a426948b7f849bff67439e4e}{}\label{classRandomPlanner_a33348010a426948b7f849bff67439e4e}
+
+
+Find possible Neighbors around the node. 
+
+locate all neigtbors by moving in all directions and checking if they are not obstacles
+
+
+\begin{DoxyParams}{Parameters}
+{\em std\+::pair} & location of the\\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+vector of neighbors around the given input node location
+\end{DoxyReturn}
+
+\begin{DoxyParams}{Parameters}
+{\em position} & \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+vector of all possible neighbors 
+\end{DoxyReturn}
+\index{Random\+Planner@{Random\+Planner}!get\+Path@{get\+Path}}
+\index{get\+Path@{get\+Path}!Random\+Planner@{Random\+Planner}}
+\subsubsection[{\texorpdfstring{get\+Path()}{getPath()}}]{\setlength{\rightskip}{0pt plus 5cm}std\+::vector$<$std\+::pair$<$int, int$>$ $>$ Random\+Planner\+::get\+Path (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+)}\hypertarget{classRandomPlanner_aa743dd84e235919e8dd6c63c5c7eb1e8}{}\label{classRandomPlanner_aa743dd84e235919e8dd6c63c5c7eb1e8}
+
+
+getter function for found path 
+
+\begin{DoxyReturn}{Returns}
+vector of positions in path 
+\end{DoxyReturn}
+\index{Random\+Planner@{Random\+Planner}!get\+X\+Length@{get\+X\+Length}}
+\index{get\+X\+Length@{get\+X\+Length}!Random\+Planner@{Random\+Planner}}
+\subsubsection[{\texorpdfstring{get\+X\+Length()}{getXLength()}}]{\setlength{\rightskip}{0pt plus 5cm}int Random\+Planner\+::get\+X\+Length (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+)}\hypertarget{classRandomPlanner_a1e0ae120157b58fb866da2305f80b86a}{}\label{classRandomPlanner_a1e0ae120157b58fb866da2305f80b86a}
+
+
+getter function for max x of the map 
+
+\begin{DoxyReturn}{Returns}
+max horizontal length 
+\end{DoxyReturn}
+\index{Random\+Planner@{Random\+Planner}!get\+Y\+Length@{get\+Y\+Length}}
+\index{get\+Y\+Length@{get\+Y\+Length}!Random\+Planner@{Random\+Planner}}
+\subsubsection[{\texorpdfstring{get\+Y\+Length()}{getYLength()}}]{\setlength{\rightskip}{0pt plus 5cm}int Random\+Planner\+::get\+Y\+Length (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+)}\hypertarget{classRandomPlanner_a01279711baee1ba008b280e5ec291aec}{}\label{classRandomPlanner_a01279711baee1ba008b280e5ec291aec}
+
+
+getter function for Y length 
+
+\begin{DoxyReturn}{Returns}
+max depth of the map 
+\end{DoxyReturn}
+\index{Random\+Planner@{Random\+Planner}!is\+Obstacle@{is\+Obstacle}}
+\index{is\+Obstacle@{is\+Obstacle}!Random\+Planner@{Random\+Planner}}
+\subsubsection[{\texorpdfstring{is\+Obstacle(std\+::pair$<$ int, int $>$)}{isObstacle(std::pair< int, int >)}}]{\setlength{\rightskip}{0pt plus 5cm}bool Random\+Planner\+::is\+Obstacle (
+\begin{DoxyParamCaption}
+\item[{std\+::pair$<$ int, int $>$}]{to\+\_\+be\+\_\+checked}
+\end{DoxyParamCaption}
+)}\hypertarget{classRandomPlanner_a2311066614013953f01b0658652e6b5e}{}\label{classRandomPlanner_a2311066614013953f01b0658652e6b5e}
+
+
+To check if robot is in defined boundary. 
+
+Checks if the position is valid positon in map and is obstacle or not 1 = obstacle, 0= free.
+
+
+\begin{DoxyParams}{Parameters}
+{\em std\+::pair} & robot coordinates\\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+true if its blocked/obstacle, else false
+\end{DoxyReturn}
+
+\begin{DoxyParams}{Parameters}
+{\em to\+\_\+be\+\_\+checked} & location to be checked\\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+bool if its obstacle or free space 
+\end{DoxyReturn}
+\index{Random\+Planner@{Random\+Planner}!move\+Down@{move\+Down}}
+\index{move\+Down@{move\+Down}!Random\+Planner@{Random\+Planner}}
+\subsubsection[{\texorpdfstring{move\+Down(\+Node)}{moveDown(Node)}}]{\setlength{\rightskip}{0pt plus 5cm}{\bf Node} Random\+Planner\+::move\+Down (
+\begin{DoxyParamCaption}
+\item[{{\bf Node}}]{some\+Node}
+\end{DoxyParamCaption}
+)}\hypertarget{classRandomPlanner_a6ac0a6fdc7dd5c2c2576ace8f26d87f5}{}\label{classRandomPlanner_a6ac0a6fdc7dd5c2c2576ace8f26d87f5}
+
+
+TO move in +y direction. 
+
+Move in respective direction.
+
+
+\begin{DoxyParams}{Parameters}
+{\em \hyperlink{structNode}{Node}} & node to be udpated\\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+updated \hyperlink{structNode}{Node}
+\end{DoxyReturn}
+
+\begin{DoxyParams}{Parameters}
+{\em some\+Node} & \hyperlink{structNode}{Node} to be moved\\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+Updated N\+Ode 
+\end{DoxyReturn}
+\index{Random\+Planner@{Random\+Planner}!move\+Left@{move\+Left}}
+\index{move\+Left@{move\+Left}!Random\+Planner@{Random\+Planner}}
+\subsubsection[{\texorpdfstring{move\+Left(\+Node)}{moveLeft(Node)}}]{\setlength{\rightskip}{0pt plus 5cm}{\bf Node} Random\+Planner\+::move\+Left (
+\begin{DoxyParamCaption}
+\item[{{\bf Node}}]{some\+Node}
+\end{DoxyParamCaption}
+)}\hypertarget{classRandomPlanner_a37871c2c07e26640fb0619db0299a3ba}{}\label{classRandomPlanner_a37871c2c07e26640fb0619db0299a3ba}
+
+
+TO move in left location. 
+
+Move in respective direction.
+
+
+\begin{DoxyParams}{Parameters}
+{\em \hyperlink{structNode}{Node}} & node to be moved\\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+updated \hyperlink{structNode}{Node}
+\end{DoxyReturn}
+
+\begin{DoxyParams}{Parameters}
+{\em some\+Node} & node to be moved\\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+Updated N\+Ode 
+\end{DoxyReturn}
+\index{Random\+Planner@{Random\+Planner}!move\+Right@{move\+Right}}
+\index{move\+Right@{move\+Right}!Random\+Planner@{Random\+Planner}}
+\subsubsection[{\texorpdfstring{move\+Right(\+Node)}{moveRight(Node)}}]{\setlength{\rightskip}{0pt plus 5cm}{\bf Node} Random\+Planner\+::move\+Right (
+\begin{DoxyParamCaption}
+\item[{{\bf Node}}]{some\+Node}
+\end{DoxyParamCaption}
+)}\hypertarget{classRandomPlanner_af2b9b922d2d1b774dac4017024eda536}{}\label{classRandomPlanner_af2b9b922d2d1b774dac4017024eda536}
+
+
+to move in +x direction 
+
+Move in respective direction.
+
+
+\begin{DoxyParams}{Parameters}
+{\em \hyperlink{structNode}{Node}} & node to be updated\\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+updated node
+\end{DoxyReturn}
+
+\begin{DoxyParams}{Parameters}
+{\em some\+Node} & \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+Updated N\+Ode 
+\end{DoxyReturn}
+\index{Random\+Planner@{Random\+Planner}!move\+Up@{move\+Up}}
+\index{move\+Up@{move\+Up}!Random\+Planner@{Random\+Planner}}
+\subsubsection[{\texorpdfstring{move\+Up(\+Node)}{moveUp(Node)}}]{\setlength{\rightskip}{0pt plus 5cm}{\bf Node} Random\+Planner\+::move\+Up (
+\begin{DoxyParamCaption}
+\item[{{\bf Node}}]{some\+Node}
+\end{DoxyParamCaption}
+)}\hypertarget{classRandomPlanner_a9bc4c7235eea43f4c7ff7c1c55b81511}{}\label{classRandomPlanner_a9bc4c7235eea43f4c7ff7c1c55b81511}
+
+
+to Move in up direction, updates current node 
+
+Move in respective direction.
+
+
+\begin{DoxyParams}{Parameters}
+{\em \hyperlink{structNode}{Node}} & present node location\\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+Update \hyperlink{structNode}{Node} to move in upper block
+\end{DoxyReturn}
+
+\begin{DoxyParams}{Parameters}
+{\em some\+Node} & \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+Updated N\+Ode 
+\end{DoxyReturn}
+\index{Random\+Planner@{Random\+Planner}!random\+Direction@{random\+Direction}}
+\index{random\+Direction@{random\+Direction}!Random\+Planner@{Random\+Planner}}
+\subsubsection[{\texorpdfstring{random\+Direction()}{randomDirection()}}]{\setlength{\rightskip}{0pt plus 5cm}int Random\+Planner\+::random\+Direction (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+)}\hypertarget{classRandomPlanner_af1ac348e7631e5e8817283d1148c3170}{}\label{classRandomPlanner_af1ac348e7631e5e8817283d1148c3170}
+
+
+to give random direction everytime we run this function in range of 1 to 4 
+
+to produce random direction in 1-\/4 rangle denoting Directions 1 -\/$>$ Up 2 -\/$>$ Left 3 -\/$>$ D\+Own 4 -\/$>$ Right
+
+\begin{DoxyReturn}{Returns}
+random direction in range of \{1,2,3,4\}
+
+direction 
+\end{DoxyReturn}
+\index{Random\+Planner@{Random\+Planner}!search@{search}}
+\index{search@{search}!Random\+Planner@{Random\+Planner}}
+\subsubsection[{\texorpdfstring{search(std\+::vector$<$ std\+::vector$<$ int $>$$>$, std\+::pair$<$ int, int $>$, std\+::pair$<$ int, int $>$)}{search(std::vector< std::vector< int >>, std::pair< int, int >, std::pair< int, int >)}}]{\setlength{\rightskip}{0pt plus 5cm}std\+::vector$<$ std\+::pair$<$ int, int $>$ $>$ Random\+Planner\+::search (
+\begin{DoxyParamCaption}
+\item[{std\+::vector$<$ std\+::vector$<$ int $>$$>$}]{map, }
+\item[{std\+::pair$<$ int, int $>$}]{robot\+\_\+pose, }
+\item[{std\+::pair$<$ int, int $>$}]{goal\+\_\+pose}
+\end{DoxyParamCaption}
+)}\hypertarget{classRandomPlanner_a8c8eed29ca324e01b4659a3c99b4e14d}{}\label{classRandomPlanner_a8c8eed29ca324e01b4659a3c99b4e14d}
+
+
+To search the path by randomly moving in map with constraint of not moving to node which is visited already in last N steps unless its the only choice robot has. 
+
+Moves in random directions, can update the locaiton only if the robot can move in that direction and the new node is stored in queue unless its the only option forrobot to move.
+
+
+\begin{DoxyParams}{Parameters}
+{\em std\+::vector} & world map \\
+\hline
+{\em std\+::pair} & start location \\
+\hline
+{\em std\+::pair} & goal location\\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+
+\end{DoxyReturn}
+\index{Random\+Planner@{Random\+Planner}!set\+Goal\+Node@{set\+Goal\+Node}}
+\index{set\+Goal\+Node@{set\+Goal\+Node}!Random\+Planner@{Random\+Planner}}
+\subsubsection[{\texorpdfstring{set\+Goal\+Node()}{setGoalNode()}}]{\setlength{\rightskip}{0pt plus 5cm}void Random\+Planner\+::set\+Goal\+Node (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+)}\hypertarget{classRandomPlanner_a85e06fe4a9140bd8114161e7c42a9b7d}{}\label{classRandomPlanner_a85e06fe4a9140bd8114161e7c42a9b7d}
+
+
+Sets goal \hyperlink{structNode}{Node} as per given value,location. 
+
+sets goal \hyperlink{structNode}{Node} from inputs of value(0=free) and location \index{Random\+Planner@{Random\+Planner}!set\+Start\+Node@{set\+Start\+Node}}
+\index{set\+Start\+Node@{set\+Start\+Node}!Random\+Planner@{Random\+Planner}}
+\subsubsection[{\texorpdfstring{set\+Start\+Node()}{setStartNode()}}]{\setlength{\rightskip}{0pt plus 5cm}void Random\+Planner\+::set\+Start\+Node (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+)}\hypertarget{classRandomPlanner_afb341442e9b2629873f6e8c220ea2846}{}\label{classRandomPlanner_afb341442e9b2629873f6e8c220ea2846}
+
+
+Sets Start \hyperlink{structNode}{Node} as per given value and location. 
+
+sets start node from starting locaiton and value (0=free) \index{Random\+Planner@{Random\+Planner}!update\+Last\+Steps@{update\+Last\+Steps}}
+\index{update\+Last\+Steps@{update\+Last\+Steps}!Random\+Planner@{Random\+Planner}}
+\subsubsection[{\texorpdfstring{update\+Last\+Steps(\+Node)}{updateLastSteps(Node)}}]{\setlength{\rightskip}{0pt plus 5cm}void Random\+Planner\+::update\+Last\+Steps (
+\begin{DoxyParamCaption}
+\item[{{\bf Node}}]{a\+\_\+node}
+\end{DoxyParamCaption}
+)}\hypertarget{classRandomPlanner_a97938382e5e03ff5e3a6728bac85af86}{}\label{classRandomPlanner_a97938382e5e03ff5e3a6728bac85af86}
+
+
+update the last steps queue to maintain memory 
+
+Update Last steps with new \hyperlink{structNode}{Node}, remove first in and add new element to planners short memory of length sqrt(max\+\_\+step\+\_\+number)
+
+
+\begin{DoxyParams}{Parameters}
+{\em \hyperlink{structNode}{Node}} & location of new location to be updated in memory\\
+\hline
+{\em a\+\_\+node} & new node to be included in memory \\
+\hline
+\end{DoxyParams}
+
+
+The documentation for this class was generated from the following files\+:\begin{DoxyCompactItemize}
+\item 
+/home/bob/\+Bob\+\_\+old/\+Brain/\+Discrete\+\_\+\+Planners/include/\hyperlink{RandomPlanner_8h}{Random\+Planner.\+h}\item 
+/home/bob/\+Bob\+\_\+old/\+Brain/\+Discrete\+\_\+\+Planners/app/\hyperlink{RandomPlanner_8cpp}{Random\+Planner.\+cpp}\end{DoxyCompactItemize}

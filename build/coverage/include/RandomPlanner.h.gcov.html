@@ -1,0 +1,342 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+
+<html lang="en">
+
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <title>LCOV - coverage.info.cleaned - include/RandomPlanner.h</title>
+  <link rel="stylesheet" type="text/css" href="../gcov.css">
+</head>
+
+<body>
+
+  <table width="100%" border=0 cellspacing=0 cellpadding=0>
+    <tr><td class="title">LCOV - code coverage report</td></tr>
+    <tr><td class="ruler"><img src="../glass.png" width=3 height=3 alt=""></td></tr>
+
+    <tr>
+      <td width="100%">
+        <table cellpadding=1 border=0 width="100%">
+          <tr>
+            <td width="10%" class="headerItem">Current view:</td>
+            <td width="35%" class="headerValue"><a href="../index.html">top level</a> - <a href="index.html">include</a> - RandomPlanner.h<span style="font-size: 80%;"> (source / <a href="RandomPlanner.h.func-sort-c.html">functions</a>)</span></td>
+            <td width="5%"></td>
+            <td width="15%"></td>
+            <td width="10%" class="headerCovTableHead">Hit</td>
+            <td width="10%" class="headerCovTableHead">Total</td>
+            <td width="15%" class="headerCovTableHead">Coverage</td>
+          </tr>
+          <tr>
+            <td class="headerItem">Test:</td>
+            <td class="headerValue">coverage.info.cleaned</td>
+            <td></td>
+            <td class="headerItem">Lines:</td>
+            <td class="headerCovTableEntry">1</td>
+            <td class="headerCovTableEntry">1</td>
+            <td class="headerCovTableEntryHi">100.0 %</td>
+          </tr>
+          <tr>
+            <td class="headerItem">Date:</td>
+            <td class="headerValue">2019-04-04 23:33:50</td>
+            <td></td>
+            <td class="headerItem">Functions:</td>
+            <td class="headerCovTableEntry">1</td>
+            <td class="headerCovTableEntry">1</td>
+            <td class="headerCovTableEntryHi">100.0 %</td>
+          </tr>
+          <tr><td><img src="../glass.png" width=3 height=3 alt=""></td></tr>
+        </table>
+      </td>
+    </tr>
+
+    <tr><td class="ruler"><img src="../glass.png" width=3 height=3 alt=""></td></tr>
+  </table>
+
+  <table cellpadding=0 cellspacing=0 border=0>
+    <tr>
+      <td><br></td>
+    </tr>
+    <tr>
+      <td>
+<pre class="sourceHeading">          Line data    Source code</pre>
+<pre class="source">
+<a name="1"><span class="lineNum">       1 </span>            : /* Copyright (C)</a>
+<span class="lineNum">       2 </span>            :  * 2019 - Bhargav Dandamudi
+<span class="lineNum">       3 </span>            :  *
+<span class="lineNum">       4 </span>            :  * MIT License
+<span class="lineNum">       5 </span>            :  *
+<span class="lineNum">       6 </span>            :  * Permission is hereby granted, free of charge, to any person
+<span class="lineNum">       7 </span>            :  * obtaining a copy of this software and associated documentation
+<span class="lineNum">       8 </span>            :  * files (the 'Software'), to deal in the Software without
+<span class="lineNum">       9 </span>            :  * restriction, including without limitation the rights
+<span class="lineNum">      10 </span>            :  * to use, copy, modify, merge, publish, distribute,
+<span class="lineNum">      11 </span>            :  * sublicense, and/or sell copies of the Software, and to permit
+<span class="lineNum">      12 </span>            :  * persons to whom the Software is furnished to do so,subject to
+<span class="lineNum">      13 </span>            :  * the following conditions:
+<span class="lineNum">      14 </span>            :  * The above copyright notice and this permission notice shall
+<span class="lineNum">      15 </span>            :  * be included in all copies or substantial portions of the Software.
+<span class="lineNum">      16 </span>            :  * THE SOFTWARE IS PROVIDED ''AS IS'', WITHOUT WARRANTY OF ANY KIND,
+<span class="lineNum">      17 </span>            :  * EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES
+<span class="lineNum">      18 </span>            :  * OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT.
+<span class="lineNum">      19 </span>            :  * IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR
+<span class="lineNum">      20 </span>            :  * ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT,
+<span class="lineNum">      21 </span>            :  * TORT OR OTHERWISE, ARISING FROM,OUT OF OR IN CONNECTION WITH
+<span class="lineNum">      22 </span>            :  * THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
+<span class="lineNum">      23 </span>            :  *
+<span class="lineNum">      24 </span>            :  */
+<span class="lineNum">      25 </span>            : /**
+<span class="lineNum">      26 </span>            :  * @file RandomPlanner.h
+<span class="lineNum">      27 </span>            :  * @brief  Main Random Discrete Planner Class with all declarations
+<span class="lineNum">      28 </span>            :  * @author Bhargav Dandamudi
+<span class="lineNum">      29 </span>            :  * @version 1
+<span class="lineNum">      30 </span>            :  * @date 2019-04-03
+<span class="lineNum">      31 </span>            :  */
+<span class="lineNum">      32 </span>            : #pragma once
+<span class="lineNum">      33 </span>            : #include &quot;./Node.h&quot;
+<span class="lineNum">      34 </span>            : #include &lt;algorithm&gt;
+<span class="lineNum">      35 </span>            : #include &lt;deque&gt;
+<span class="lineNum">      36 </span>            : #include &lt;iostream&gt;
+<span class="lineNum">      37 </span>            : #include &lt;queue&gt;
+<span class="lineNum">      38 </span>            : #include &lt;time.h&gt;
+<span class="lineNum">      39 </span>            : #include &lt;utility&gt;
+<span class="lineNum">      40 </span>            : #include &lt;vector&gt;
+<span class="lineNum">      41 </span>            : /* ----------------------------------------------------------------*/
+<span class="lineNum">      42 </span>            : /**
+<span class="lineNum">      43 </span>            :  * @brief The random planner tries to find a path to the goal by randomly moving
+<span class="lineNum">      44 </span>            : in the environment (only orthogonal moves are legal). If the planner can not
+<span class="lineNum">      45 </span>            : find an acceptable solution in less than max_step_number, the search should
+<span class="lineNum">      46 </span>            : fail. The random planner, while being erratic, has a short memory, and it will
+<span class="lineNum">      47 </span>            : never attempt to visit a cell that was visited in the last sqrt(max_step_number)
+<span class="lineNum">      48 </span>            : steps except if this is the only available option.
+<a name="49"><span class="lineNum">      49 </span>            :  */</a>
+<span class="lineNum">      50 </span>            : /* ----------------------------------------------------------------*/
+<span class="lineNum">      51 </span><span class="lineCov">          1 : class RandomPlanner {</span>
+<span class="lineNum">      52 </span>            : private:
+<span class="lineNum">      53 </span>            :   int max_step_number = 100; // as in problem statement, can be any +ve integer
+<span class="lineNum">      54 </span>            :   std::deque&lt;std::pair&lt;int, int&gt;&gt;
+<span class="lineNum">      55 </span>            :       last_steps; // Queue Memory of last N steps taken so far
+<span class="lineNum">      56 </span>            :   std::vector&lt;std::vector&lt;int&gt;&gt; world_map;
+<span class="lineNum">      57 </span>            :   std::pair&lt;int, int&gt; robot_pose; // starting location of the robot
+<span class="lineNum">      58 </span>            :   std::pair&lt;int, int&gt; goal_pose;  // destination of the robot
+<span class="lineNum">      59 </span>            :   std::vector&lt;std::pair&lt;int, int&gt;&gt; path_;
+<span class="lineNum">      60 </span>            :   Node start_node; // start node with starting location
+<span class="lineNum">      61 </span>            :   Node goal_node;  // goal node with destination location
+<span class="lineNum">      62 </span>            :   Node current_node;
+<span class="lineNum">      63 </span>            :   int dir;      // direction inwhich robot will move
+<span class="lineNum">      64 </span>            :   int y_length; // max height of map in y direction
+<span class="lineNum">      65 </span>            :   int x_length; // max width of map in x direction
+<span class="lineNum">      66 </span>            : 
+<span class="lineNum">      67 </span>            : public:
+<span class="lineNum">      68 </span>            :   /* ----------------------------------------------------------------*/
+<span class="lineNum">      69 </span>            :   /**
+<span class="lineNum">      70 </span>            :    * @brief  Default Constructor
+<span class="lineNum">      71 </span>            :    */
+<span class="lineNum">      72 </span>            :   /* ----------------------------------------------------------------*/
+<span class="lineNum">      73 </span>            :   RandomPlanner();
+<span class="lineNum">      74 </span>            :   /* ----------------------------------------------------------------*/
+<span class="lineNum">      75 </span>            :   /**
+<span class="lineNum">      76 </span>            :    * @brief Parameterised constructor to take map, starting position and goal
+<span class="lineNum">      77 </span>            :    * position
+<span class="lineNum">      78 </span>            :    * of robot
+<span class="lineNum">      79 </span>            :    * @param std::vector&lt;std::vector&gt; world map
+<span class="lineNum">      80 </span>            :    * @param std::pair starting position
+<span class="lineNum">      81 </span>            :    * @param std::pair goal position
+<span class="lineNum">      82 </span>            :    */
+<span class="lineNum">      83 </span>            :   /* ----------------------------------------------------------------*/
+<span class="lineNum">      84 </span>            :   RandomPlanner(std::vector&lt;std::vector&lt;int&gt;&gt;, std::pair&lt;int, int&gt;,
+<span class="lineNum">      85 </span>            :                 std::pair&lt;int, int&gt;);
+<span class="lineNum">      86 </span>            :   /* ----------------------------------------------------------------*/
+<span class="lineNum">      87 </span>            :   /**
+<span class="lineNum">      88 </span>            :    * @brief  to Move in up direction, updates current node
+<span class="lineNum">      89 </span>            :    *
+<span class="lineNum">      90 </span>            :    * @param Node present node location
+<span class="lineNum">      91 </span>            :    *
+<span class="lineNum">      92 </span>            :    * @return Update Node to move in upper block
+<span class="lineNum">      93 </span>            :    */
+<span class="lineNum">      94 </span>            :   /* ----------------------------------------------------------------*/
+<span class="lineNum">      95 </span>            :   Node moveUp(Node);
+<span class="lineNum">      96 </span>            :   /* ----------------------------------------------------------------*/
+<span class="lineNum">      97 </span>            :   /**
+<span class="lineNum">      98 </span>            :    * @brief  TO move in left location
+<span class="lineNum">      99 </span>            :    *
+<span class="lineNum">     100 </span>            :    * @param Node node to be moved
+<span class="lineNum">     101 </span>            :    *
+<span class="lineNum">     102 </span>            :    * @return updated Node
+<span class="lineNum">     103 </span>            :    */
+<span class="lineNum">     104 </span>            :   /* ----------------------------------------------------------------*/
+<span class="lineNum">     105 </span>            :   Node moveLeft(Node);
+<span class="lineNum">     106 </span>            :   /* ----------------------------------------------------------------*/
+<span class="lineNum">     107 </span>            :   /**
+<span class="lineNum">     108 </span>            :    * @brief  TO move in +y direction
+<span class="lineNum">     109 </span>            :    *
+<span class="lineNum">     110 </span>            :    * @param Node node to be udpated
+<span class="lineNum">     111 </span>            :    *
+<span class="lineNum">     112 </span>            :    * @return updated Node
+<span class="lineNum">     113 </span>            :    */
+<span class="lineNum">     114 </span>            :   /* ----------------------------------------------------------------*/
+<span class="lineNum">     115 </span>            :   Node moveDown(Node);
+<span class="lineNum">     116 </span>            :   /* ----------------------------------------------------------------*/
+<span class="lineNum">     117 </span>            :   /**
+<span class="lineNum">     118 </span>            :    * @brief   to move in +x direction
+<span class="lineNum">     119 </span>            :    *
+<span class="lineNum">     120 </span>            :    * @param  Node node to be updated
+<span class="lineNum">     121 </span>            :    *
+<span class="lineNum">     122 </span>            :    * @return updated node
+<span class="lineNum">     123 </span>            :    */
+<span class="lineNum">     124 </span>            :   /* ----------------------------------------------------------------*/
+<span class="lineNum">     125 </span>            :   Node moveRight(Node);
+<span class="lineNum">     126 </span>            :   /* ----------------------------------------------------------------*/
+<span class="lineNum">     127 </span>            :   /**
+<span class="lineNum">     128 </span>            :    * @brief to fetch goal location
+<span class="lineNum">     129 </span>            :    */
+<span class="lineNum">     130 </span>            :   /* ----------------------------------------------------------------*/
+<span class="lineNum">     131 </span>            :   std::pair&lt;int, int&gt; getGoal();
+<span class="lineNum">     132 </span>            :   /* ----------------------------------------------------------------*/
+<span class="lineNum">     133 </span>            :   /**
+<span class="lineNum">     134 </span>            :    * @brief  to get starting location of the robot
+<span class="lineNum">     135 </span>            :    */
+<span class="lineNum">     136 </span>            :   /* ----------------------------------------------------------------*/
+<span class="lineNum">     137 </span>            :   std::pair&lt;int, int&gt; getStart();
+<span class="lineNum">     138 </span>            :   /* ----------------------------------------------------------------*/
+<span class="lineNum">     139 </span>            :   /**
+<span class="lineNum">     140 </span>            :    * @brief  To check if robot is in defined boundary
+<span class="lineNum">     141 </span>            :    *
+<span class="lineNum">     142 </span>            :    * @param std::pair robot coordinates
+<span class="lineNum">     143 </span>            :    *
+<span class="lineNum">     144 </span>            :    * @return true if its blocked/obstacle, else false
+<span class="lineNum">     145 </span>            :    */
+<span class="lineNum">     146 </span>            :   /* ----------------------------------------------------------------*/
+<span class="lineNum">     147 </span>            :   bool isObstacle(std::pair&lt;int, int&gt;);
+<span class="lineNum">     148 </span>            : 
+<span class="lineNum">     149 </span>            :   /* ----------------------------------------------------------------*/
+<span class="lineNum">     150 </span>            :   /**
+<span class="lineNum">     151 </span>            :    * @brief  getter function for max x of the map
+<span class="lineNum">     152 </span>            :    *
+<span class="lineNum">     153 </span>            :    * @return max horizontal length
+<span class="lineNum">     154 </span>            :    */
+<span class="lineNum">     155 </span>            :   /* ----------------------------------------------------------------*/
+<span class="lineNum">     156 </span>            :   int getXLength();
+<span class="lineNum">     157 </span>            :   /* ----------------------------------------------------------------*/
+<span class="lineNum">     158 </span>            :   /**
+<span class="lineNum">     159 </span>            :    * @brief  getter function for Y length
+<span class="lineNum">     160 </span>            :    *
+<span class="lineNum">     161 </span>            :    * @return  max depth of the map
+<span class="lineNum">     162 </span>            :    */
+<span class="lineNum">     163 </span>            :   /* ----------------------------------------------------------------*/
+<span class="lineNum">     164 </span>            :   int getYLength();
+<span class="lineNum">     165 </span>            :   /* ----------------------------------------------------------------*/
+<span class="lineNum">     166 </span>            :   /**
+<span class="lineNum">     167 </span>            :    * @brief  to give random direction everytime we run this function
+<span class="lineNum">     168 </span>            :    *          in range of 1 to 4
+<span class="lineNum">     169 </span>            :    * @return random direction in range of {1,2,3,4}
+<span class="lineNum">     170 </span>            :    */
+<span class="lineNum">     171 </span>            :   /* ----------------------------------------------------------------*/
+<span class="lineNum">     172 </span>            :   int randomDirection();
+<span class="lineNum">     173 </span>            :   /* ----------------------------------------------------------------*/
+<span class="lineNum">     174 </span>            :   /**
+<span class="lineNum">     175 </span>            :    * @brief  update the last steps queue to maintain memory
+<span class="lineNum">     176 </span>            :    *
+<span class="lineNum">     177 </span>            :    * @param Node location of new location to be updated in memory
+<span class="lineNum">     178 </span>            :    */
+<span class="lineNum">     179 </span>            :   /* ----------------------------------------------------------------*/
+<span class="lineNum">     180 </span>            :   void updateLastSteps(Node);
+<span class="lineNum">     181 </span>            :   /* ----------------------------------------------------------------*/
+<span class="lineNum">     182 </span>            :   /**
+<span class="lineNum">     183 </span>            :    * @brief  To check if input node is in memory or not
+<span class="lineNum">     184 </span>            :    *
+<span class="lineNum">     185 </span>            :    * @param Node
+<span class="lineNum">     186 </span>            :    *
+<span class="lineNum">     187 </span>            :    * @return true if the node is in memory
+<span class="lineNum">     188 </span>            :    */
+<span class="lineNum">     189 </span>            :   /* ----------------------------------------------------------------*/
+<span class="lineNum">     190 </span>            :   bool checkLastNSteps(Node);
+<span class="lineNum">     191 </span>            :   /* ----------------------------------------------------------------*/
+<span class="lineNum">     192 </span>            :   /**
+<span class="lineNum">     193 </span>            :    * @brief  to check if robot visited these positions as stored in its memory
+<span class="lineNum">     194 </span>            :    *
+<span class="lineNum">     195 </span>            :    * @param std::pair&lt;int,int&gt; position of the robot
+<span class="lineNum">     196 </span>            :    *
+<span class="lineNum">     197 </span>            :    * @return
+<span class="lineNum">     198 </span>            :    */
+<span class="lineNum">     199 </span>            :   /* ----------------------------------------------------------------*/
+<span class="lineNum">     200 </span>            :   bool checkLastNPositions(std::pair&lt;int, int&gt;);
+<span class="lineNum">     201 </span>            :   /* ----------------------------------------------------------------*/
+<span class="lineNum">     202 </span>            :   /**
+<span class="lineNum">     203 </span>            :    * @brief  to print the robot path if found
+<span class="lineNum">     204 </span>            :    */
+<span class="lineNum">     205 </span>            :   /* ----------------------------------------------------------------*/
+<span class="lineNum">     206 </span>            :   void printPath();
+<span class="lineNum">     207 </span>            :   /* ----------------------------------------------------------------*/
+<span class="lineNum">     208 </span>            :   /**
+<span class="lineNum">     209 </span>            :    * @brief  To search the path by randomly moving in map with constraint of
+<span class="lineNum">     210 </span>            :    *          not moving to node which is visited already in last N steps
+<span class="lineNum">     211 </span>            :    *          unless its the only choice robot has
+<span class="lineNum">     212 </span>            :    *
+<span class="lineNum">     213 </span>            :    * @param std::vector world map
+<span class="lineNum">     214 </span>            :    * @param std::pair start location
+<span class="lineNum">     215 </span>            :    * @param std::pair goal location
+<span class="lineNum">     216 </span>            :    *
+<span class="lineNum">     217 </span>            :    * @return
+<span class="lineNum">     218 </span>            :    */
+<span class="lineNum">     219 </span>            :   /* ----------------------------------------------------------------*/
+<span class="lineNum">     220 </span>            :   std::vector&lt;std::pair&lt;int, int&gt;&gt; search(std::vector&lt;std::vector&lt;int&gt;&gt;,
+<span class="lineNum">     221 </span>            :                                           std::pair&lt;int, int&gt;,
+<span class="lineNum">     222 </span>            :                                           std::pair&lt;int, int&gt;);
+<span class="lineNum">     223 </span>            : 
+<span class="lineNum">     224 </span>            :   /* ----------------------------------------------------------------*/
+<span class="lineNum">     225 </span>            :   /**
+<span class="lineNum">     226 </span>            :    * @brief  Sets goal Node as per given value,location
+<span class="lineNum">     227 </span>            :    */
+<span class="lineNum">     228 </span>            :   /* ----------------------------------------------------------------*/
+<span class="lineNum">     229 </span>            :   void setGoalNode();
+<span class="lineNum">     230 </span>            :   /* ----------------------------------------------------------------*/
+<span class="lineNum">     231 </span>            :   /**
+<span class="lineNum">     232 </span>            :    * @brief  Sets Start Node as per given value and location
+<span class="lineNum">     233 </span>            :    */
+<span class="lineNum">     234 </span>            :   /* ----------------------------------------------------------------*/
+<span class="lineNum">     235 </span>            :   void setStartNode();
+<span class="lineNum">     236 </span>            : 
+<span class="lineNum">     237 </span>            :   /* ----------------------------------------------------------------*/
+<span class="lineNum">     238 </span>            :   /**
+<span class="lineNum">     239 </span>            :    * @brief Find possible Neighbors around the node
+<span class="lineNum">     240 </span>            :    *
+<span class="lineNum">     241 </span>            :    * @param std::pair location of the
+<span class="lineNum">     242 </span>            :    *
+<span class="lineNum">     243 </span>            :    * @return vector of neighbors around the given input node location
+<span class="lineNum">     244 </span>            :    */
+<span class="lineNum">     245 </span>            :   /* ----------------------------------------------------------------*/
+<span class="lineNum">     246 </span>            :   std::vector&lt;std::pair&lt;int, int&gt;&gt; findNeighbors(std::pair&lt;int, int&gt;);
+<span class="lineNum">     247 </span>            :   /* ----------------------------------------------------------------*/
+<span class="lineNum">     248 </span>            :   /**
+<span class="lineNum">     249 </span>            :    * @brief  CHeck if the neighbors are in short memory of old steps taken
+<span class="lineNum">     250 </span>            :    *
+<span class="lineNum">     251 </span>            :    * @param std::pair position
+<span class="lineNum">     252 </span>            :    *
+<span class="lineNum">     253 </span>            :    * @return true if any of the neighbor is in memory (lastNsteps)
+<span class="lineNum">     254 </span>            :    */
+<span class="lineNum">     255 </span>            :   /* ----------------------------------------------------------------*/
+<span class="lineNum">     256 </span>            :   bool allNeighborsInMemory(std::pair&lt;int, int&gt;);
+<span class="lineNum">     257 </span>            : 
+<span class="lineNum">     258 </span>            :   /* ----------------------------------------------------------------*/
+<span class="lineNum">     259 </span>            :   /**
+<span class="lineNum">     260 </span>            :    * @brief  getter function for found path
+<span class="lineNum">     261 </span>            :    *
+<span class="lineNum">     262 </span>            :    * @return vector of positions in path
+<span class="lineNum">     263 </span>            :    */
+<span class="lineNum">     264 </span>            :   /* ----------------------------------------------------------------*/
+<span class="lineNum">     265 </span>            :   std::vector&lt;std::pair&lt;int, int&gt;&gt; getPath();
+<span class="lineNum">     266 </span>            : };
+</pre>
+      </td>
+    </tr>
+  </table>
+  <br>
+
+  <table width="100%" border=0 cellspacing=0 cellpadding=0>
+    <tr><td class="ruler"><img src="../glass.png" width=3 height=3 alt=""></td></tr>
+    <tr><td class="versionInfo">Generated by: <a href="http://ltp.sourceforge.net/coverage/lcov.php" target="_parent">LCOV version 1.12</a></td></tr>
+  </table>
+  <br>
+
+</body>
+</html>

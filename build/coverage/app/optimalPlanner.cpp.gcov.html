@@ -1,0 +1,501 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+
+<html lang="en">
+
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <title>LCOV - coverage.info.cleaned - app/optimalPlanner.cpp</title>
+  <link rel="stylesheet" type="text/css" href="../gcov.css">
+</head>
+
+<body>
+
+  <table width="100%" border=0 cellspacing=0 cellpadding=0>
+    <tr><td class="title">LCOV - code coverage report</td></tr>
+    <tr><td class="ruler"><img src="../glass.png" width=3 height=3 alt=""></td></tr>
+
+    <tr>
+      <td width="100%">
+        <table cellpadding=1 border=0 width="100%">
+          <tr>
+            <td width="10%" class="headerItem">Current view:</td>
+            <td width="35%" class="headerValue"><a href="../index.html">top level</a> - <a href="index.html">app</a> - optimalPlanner.cpp<span style="font-size: 80%;"> (source / <a href="optimalPlanner.cpp.func-sort-c.html">functions</a>)</span></td>
+            <td width="5%"></td>
+            <td width="15%"></td>
+            <td width="10%" class="headerCovTableHead">Hit</td>
+            <td width="10%" class="headerCovTableHead">Total</td>
+            <td width="15%" class="headerCovTableHead">Coverage</td>
+          </tr>
+          <tr>
+            <td class="headerItem">Test:</td>
+            <td class="headerValue">coverage.info.cleaned</td>
+            <td></td>
+            <td class="headerItem">Lines:</td>
+            <td class="headerCovTableEntry">118</td>
+            <td class="headerCovTableEntry">130</td>
+            <td class="headerCovTableEntryHi">90.8 %</td>
+          </tr>
+          <tr>
+            <td class="headerItem">Date:</td>
+            <td class="headerValue">2019-04-04 23:33:50</td>
+            <td></td>
+            <td class="headerItem">Functions:</td>
+            <td class="headerCovTableEntry">18</td>
+            <td class="headerCovTableEntry">20</td>
+            <td class="headerCovTableEntryHi">90.0 %</td>
+          </tr>
+          <tr><td><img src="../glass.png" width=3 height=3 alt=""></td></tr>
+        </table>
+      </td>
+    </tr>
+
+    <tr><td class="ruler"><img src="../glass.png" width=3 height=3 alt=""></td></tr>
+  </table>
+
+  <table cellpadding=0 cellspacing=0 border=0>
+    <tr>
+      <td><br></td>
+    </tr>
+    <tr>
+      <td>
+<pre class="sourceHeading">          Line data    Source code</pre>
+<pre class="source">
+<a name="1"><span class="lineNum">       1 </span>            : /* Copyright (C)</a>
+<span class="lineNum">       2 </span>            :  * 2019 - Bhargav Dandamudi
+<span class="lineNum">       3 </span>            :  *
+<span class="lineNum">       4 </span>            :  * MIT License
+<span class="lineNum">       5 </span>            :  *
+<span class="lineNum">       6 </span>            :  * Permission is hereby granted, free of charge, to any person
+<span class="lineNum">       7 </span>            :  * obtaining a copy of this software and associated documentation
+<span class="lineNum">       8 </span>            :  * files (the 'Software'), to deal in the Software without
+<span class="lineNum">       9 </span>            :  * restriction, including without limitation the rights
+<span class="lineNum">      10 </span>            :  * to use, copy, modify, merge, publish, distribute,
+<span class="lineNum">      11 </span>            :  * sublicense, and/or sell copies of the Software, and to permit
+<span class="lineNum">      12 </span>            :  * persons to whom the Software is furnished to do so,subject to
+<span class="lineNum">      13 </span>            :  * the following conditions:
+<span class="lineNum">      14 </span>            :  * The above copyright notice and this permission notice shall
+<span class="lineNum">      15 </span>            :  * be included in all copies or substantial portions of the Software.
+<span class="lineNum">      16 </span>            :  * THE SOFTWARE IS PROVIDED ''AS IS'', WITHOUT WARRANTY OF ANY KIND,
+<span class="lineNum">      17 </span>            :  * EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES
+<span class="lineNum">      18 </span>            :  * OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT.
+<span class="lineNum">      19 </span>            :  * IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR
+<span class="lineNum">      20 </span>            :  * ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT,
+<span class="lineNum">      21 </span>            :  * TORT OR OTHERWISE, ARISING FROM,OUT OF OR IN CONNECTION WITH
+<span class="lineNum">      22 </span>            :  * THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
+<span class="lineNum">      23 </span>            :  *
+<span class="lineNum">      24 </span>            :  */
+<span class="lineNum">      25 </span>            : 
+<span class="lineNum">      26 </span>            : /**
+<span class="lineNum">      27 </span>            :  * @file optimalPlanner.cpp
+<span class="lineNum">      28 </span>            :  * @brief  Astar Algorithm
+<span class="lineNum">      29 </span>            : A* Search Algorithm: At each step it picks the node according to a
+<span class="lineNum">      30 </span>            : value-‘f’ which is a parameter equal to the sum of two other parameters – ‘g’
+<span class="lineNum">      31 </span>            : and ‘h’. At each step it picks the node/cell having the lowest ‘f’, and process
+<span class="lineNum">      32 </span>            : that node/cell.
+<span class="lineNum">      33 </span>            : g cost = the movement cost to move from the starting point to a given square on
+<span class="lineNum">      34 </span>            : the
+<span class="lineNum">      35 </span>            : grid, following the path generated to get there.
+<span class="lineNum">      36 </span>            : h cost = the estimated movement cost to move from that given square on the grid
+<span class="lineNum">      37 </span>            : to
+<span class="lineNum">      38 </span>            : the final destination
+<span class="lineNum">      39 </span>            :  *
+<span class="lineNum">      40 </span>            :  * Here we are using Manhattan Distance for calculating h cost for each nodes
+<span class="lineNum">      41 </span>            :  *
+<span class="lineNum">      42 </span>            : Working:
+<span class="lineNum">      43 </span>            : 1. Add the starting square (or node) to the open list.
+<span class="lineNum">      44 </span>            : 
+<span class="lineNum">      45 </span>            : 2. Repeat the following:
+<span class="lineNum">      46 </span>            : 
+<span class="lineNum">      47 </span>            : A) Look for the lowest F cost square on the open list. We refer to this as the
+<span class="lineNum">      48 </span>            : current square.
+<span class="lineNum">      49 </span>            : 
+<span class="lineNum">      50 </span>            : B). Switch it to the closed list.
+<span class="lineNum">      51 </span>            : 
+<span class="lineNum">      52 </span>            : C) For each of the 8 squares adjacent to this current square …
+<span class="lineNum">      53 </span>            : 
+<span class="lineNum">      54 </span>            : If it is not walkable or if it is on the closed list, ignore it. Otherwise do
+<span class="lineNum">      55 </span>            : the following.
+<span class="lineNum">      56 </span>            : If it isn’t on the open list, add it to the open list. Make the current square
+<span class="lineNum">      57 </span>            : the parent of this square. Record the F, G, and H costs of the square.
+<span class="lineNum">      58 </span>            : If it is on the open list already, check to see if this path to that square is
+<span class="lineNum">      59 </span>            : better, using G cost as the measure. A lower G cost means that this is a better
+<span class="lineNum">      60 </span>            : path. If so, change the parent of the square to the current square, and
+<span class="lineNum">      61 </span>            : recalculate the G and F scores of the square. If you are keeping your open list
+<span class="lineNum">      62 </span>            : sorted by F score, you may need to resort the list to account for the change.
+<span class="lineNum">      63 </span>            : D) Stop when you:
+<span class="lineNum">      64 </span>            : 
+<span class="lineNum">      65 </span>            : Add the target square to the closed list, in which case the path has been found,
+<span class="lineNum">      66 </span>            : or
+<span class="lineNum">      67 </span>            : Fail to find the target square, and the open list is empty. In this case, there
+<span class="lineNum">      68 </span>            : is no path.
+<span class="lineNum">      69 </span>            : 3. Save the path. Working backwards from the target square, go from each square
+<span class="lineNum">      70 </span>            : to its parent square until you reach the starting square. That is your path.
+<span class="lineNum">      71 </span>            : 
+<span class="lineNum">      72 </span>            : //********************************************************************
+<span class="lineNum">      73 </span>            : /*
+<span class="lineNum">      74 </span>            :  * @author Bhargav Dandamudi
+<span class="lineNum">      75 </span>            :  * @version 1
+<span class="lineNum">      76 </span>            :  * @date 2019-04-04
+<span class="lineNum">      77 </span>            :  */
+<span class="lineNum">      78 </span>            : // ********************************************************** */
+<span class="lineNum">      79 </span>            : #include &quot;../include/optimalPlanner.h&quot;
+<span class="lineNum">      80 </span>            : #include &quot;../include/node.h&quot;
+<span class="lineNum">      81 </span>            : 
+<span class="lineNum">      82 </span>            : /* ----------------------------------------------------------------*/
+<span class="lineNum">      83 </span>            : /**
+<span class="lineNum">      84 </span>            :  * @brief  Default Planner for optimal planner class
+<a name="85"><span class="lineNum">      85 </span>            :  */</a>
+<span class="lineNum">      86 </span>            : /* ----------------------------------------------------------------*/
+<span class="lineNum">      87 </span><span class="lineNoCov">          0 : optimalPlanner::optimalPlanner() {}</span>
+<span class="lineNum">      88 </span>            : /* ----------------------------------------------------------------*/
+<span class="lineNum">      89 </span>            : /**
+<span class="lineNum">      90 </span>            :  * @brief  Parameterised Constructor for the class
+<span class="lineNum">      91 </span>            :  *
+<span class="lineNum">      92 </span>            :  * @param world_map
+<span class="lineNum">      93 </span>            :  * @param robot_pose
+<span class="lineNum">      94 </span>            :  * @param goal_pose
+<a name="95"><span class="lineNum">      95 </span>            :  */</a>
+<span class="lineNum">      96 </span>            : /* ----------------------------------------------------------------*/
+<span class="lineNum">      97 </span><span class="lineCov">          1 : optimalPlanner::optimalPlanner(std::vector&lt;std::vector&lt;int&gt;&gt; world_map,</span>
+<span class="lineNum">      98 </span>            :                                std::pair&lt;int, int&gt; robot_pose,
+<span class="lineNum">      99 </span><span class="lineCov">          1 :                                std::pair&lt;int, int&gt; goal_pose) {</span>
+<span class="lineNum">     100 </span><span class="lineCov">          1 :   this-&gt;world_map_ = world_map;</span>
+<span class="lineNum">     101 </span><span class="lineCov">          1 :   this-&gt;start_position_ = robot_pose;</span>
+<span class="lineNum">     102 </span><span class="lineCov">          1 :   this-&gt;goal_position_ = goal_pose;</span>
+<span class="lineNum">     103 </span><span class="lineCov">          1 :   this-&gt;y_length = int(world_map.size()) - 1;</span>
+<span class="lineNum">     104 </span><span class="lineCov">          1 :   this-&gt;x_length = int(world_map[1].size()) - 1;</span>
+<span class="lineNum">     105 </span><span class="lineCov">          1 : }</span>
+<a name="106"><span class="lineNum">     106 </span>            : </a>
+<span class="lineNum">     107 </span>            : // getter functions
+<span class="lineNum">     108 </span><span class="lineCov">          1 : std::pair&lt;int, int&gt; optimalPlanner::getStartingPoint() {</span>
+<a name="109"><span class="lineNum">     109 </span><span class="lineCov">          1 :   return this-&gt;start_position_;</span></a>
+<span class="lineNum">     110 </span>            : }
+<span class="lineNum">     111 </span><span class="lineCov">          1 : std::pair&lt;int, int&gt; optimalPlanner::getGoalPoint() {</span>
+<span class="lineNum">     112 </span><span class="lineCov">          1 :   return this-&gt;goal_position_;</span>
+<a name="113"><span class="lineNum">     113 </span>            : }</a>
+<span class="lineNum">     114 </span>            : 
+<a name="115"><span class="lineNum">     115 </span><span class="lineNoCov">          0 : int optimalPlanner::getXLength() { return this-&gt;x_length; }</span></a>
+<span class="lineNum">     116 </span>            : 
+<span class="lineNum">     117 </span><span class="lineCov">          2 : int optimalPlanner::getYLength() { return this-&gt;y_length; }</span>
+<span class="lineNum">     118 </span>            : 
+<span class="lineNum">     119 </span>            : /* ----------------------------------------------------------------*/
+<span class="lineNum">     120 </span>            : /**
+<span class="lineNum">     121 </span>            :  * @brief  To check Validity by checking if its located in map or not
+<span class="lineNum">     122 </span>            :  *
+<span class="lineNum">     123 </span>            :  * @param position
+<span class="lineNum">     124 </span>            :  *
+<span class="lineNum">     125 </span>            :  * @return false if not located inside map else true
+<a name="126"><span class="lineNum">     126 </span>            :  */</a>
+<span class="lineNum">     127 </span>            : /* ----------------------------------------------------------------*/
+<span class="lineNum">     128 </span><span class="lineCov">        317 : bool optimalPlanner::isValid(std::pair&lt;int, int&gt; position) {</span>
+<span class="lineNum">     129 </span><span class="lineCov">        317 :   int y = position.first;</span>
+<span class="lineNum">     130 </span><span class="lineCov">        317 :   int x = position.second;</span>
+<span class="lineNum">     131 </span>            : 
+<span class="lineNum">     132 </span>            :   bool valid =
+<span class="lineNum">     133 </span><span class="lineCov">        317 :       (x &gt;= 0) &amp;&amp; (y &gt;= 0) &amp;&amp; (x &lt;= this-&gt;x_length) &amp;&amp; (y &lt;= this-&gt;y_length);</span>
+<span class="lineNum">     134 </span><span class="lineCov">        317 :   return valid;</span>
+<span class="lineNum">     135 </span>            : }
+<span class="lineNum">     136 </span>            : 
+<span class="lineNum">     137 </span>            : /* ----------------------------------------------------------------*/
+<span class="lineNum">     138 </span>            : /**
+<span class="lineNum">     139 </span>            :  * @brief  To check if there is obstacle or not
+<span class="lineNum">     140 </span>            :  *
+<span class="lineNum">     141 </span>            :  * @param position
+<span class="lineNum">     142 </span>            :  *
+<span class="lineNum">     143 </span>            :  * @return true if obstacle ,false if not obstacle
+<a name="144"><span class="lineNum">     144 </span>            :  */</a>
+<span class="lineNum">     145 </span>            : /* ----------------------------------------------------------------*/
+<span class="lineNum">     146 </span><span class="lineCov">        170 : bool optimalPlanner::isBlocked(std::pair&lt;int, int&gt; position) {</span>
+<span class="lineNum">     147 </span><span class="lineCov">        170 :   if (this-&gt;world_map_[position.first][position.second] == 1) {</span>
+<span class="lineNum">     148 </span><span class="lineCov">         46 :     return true;</span>
+<span class="lineNum">     149 </span>            :   } else {
+<span class="lineNum">     150 </span><span class="lineCov">        124 :     return false;</span>
+<span class="lineNum">     151 </span>            :   }
+<span class="lineNum">     152 </span>            : }
+<span class="lineNum">     153 </span>            : 
+<span class="lineNum">     154 </span>            : /* ----------------------------------------------------------------*/
+<span class="lineNum">     155 </span>            : /**
+<span class="lineNum">     156 </span>            :  * @brief  Check for goal position
+<span class="lineNum">     157 </span>            :  *
+<span class="lineNum">     158 </span>            :  * @param position
+<span class="lineNum">     159 </span>            :  *
+<span class="lineNum">     160 </span>            :  * @return bool
+<a name="161"><span class="lineNum">     161 </span>            :  */</a>
+<span class="lineNum">     162 </span>            : /* ----------------------------------------------------------------*/
+<span class="lineNum">     163 </span><span class="lineCov">        266 : bool optimalPlanner::isItGoalYet(std::pair&lt;int, int&gt; position) {</span>
+<span class="lineNum">     164 </span><span class="lineCov">        266 :   if (position == this-&gt;goal_position_) {</span>
+<span class="lineNum">     165 </span><span class="lineCov">          6 :     return true;</span>
+<span class="lineNum">     166 </span>            :   } else
+<span class="lineNum">     167 </span><span class="lineCov">        260 :     return false;</span>
+<span class="lineNum">     168 </span>            : }
+<span class="lineNum">     169 </span>            : 
+<span class="lineNum">     170 </span>            : /* ----------------------------------------------------------------*/
+<span class="lineNum">     171 </span>            : /**
+<span class="lineNum">     172 </span>            :  * @brief  Using Manhattan DIstance to calculate H cost for the location in map
+<span class="lineNum">     173 </span>            :  *
+<span class="lineNum">     174 </span>            :  * @param position
+<span class="lineNum">     175 </span>            :  *
+<span class="lineNum">     176 </span>            :  * @return double , Hcost value
+<a name="177"><span class="lineNum">     177 </span>            :  */</a>
+<span class="lineNum">     178 </span>            : /* ----------------------------------------------------------------*/
+<span class="lineNum">     179 </span><span class="lineCov">        115 : double optimalPlanner::calculateHCost(std::pair&lt;int, int&gt; position) {</span>
+<span class="lineNum">     180 </span><span class="lineCov">        230 :   double hcost = abs(position.first - this-&gt;goal_position_.first) +</span>
+<span class="lineNum">     181 </span><span class="lineCov">        230 :                  abs(position.second - this-&gt;goal_position_.second);</span>
+<span class="lineNum">     182 </span>            : 
+<span class="lineNum">     183 </span><span class="lineCov">        115 :   return hcost;</span>
+<span class="lineNum">     184 </span>            : }
+<span class="lineNum">     185 </span>            : 
+<span class="lineNum">     186 </span>            : /* ----------------------------------------------------------------*/
+<span class="lineNum">     187 </span>            : /**
+<span class="lineNum">     188 </span>            :  * @brief  NodeInformation stores all nodes informatin , locaiton and all costs
+<span class="lineNum">     189 </span>            :  *
+<span class="lineNum">     190 </span>            :  * @param position
+<span class="lineNum">     191 </span>            :  *
+<span class="lineNum">     192 </span>            :  * @return find node at that location and return it as output
+<a name="193"><span class="lineNum">     193 </span>            :  */</a>
+<span class="lineNum">     194 </span>            : /* ----------------------------------------------------------------*/
+<span class="lineNum">     195 </span><span class="lineCov">          4 : node optimalPlanner::getNodeInformation(std::pair&lt;int, int&gt; position) {</span>
+<span class="lineNum">     196 </span><span class="lineCov">          4 :   return this-&gt;node_information[position.first][position.second];</span>
+<span class="lineNum">     197 </span>            : }
+<span class="lineNum">     198 </span>            : /* ----------------------------------------------------------------*/
+<span class="lineNum">     199 </span>            : /**
+<span class="lineNum">     200 </span>            :  * @brief  Find Path based on parents of each node backwards
+<a name="201"><span class="lineNum">     201 </span>            :  */</a>
+<span class="lineNum">     202 </span>            : /* ----------------------------------------------------------------*/
+<span class="lineNum">     203 </span><span class="lineCov">          5 : void optimalPlanner::trackPath() {</span>
+<span class="lineNum">     204 </span><span class="lineCov">          5 :   std::pair&lt;int, int&gt; g = this-&gt;goal_position_;</span>
+<span class="lineNum">     205 </span><span class="lineCov">         85 :   while (!(this-&gt;node_information[g.first][g.second].parent == g)) {</span>
+<span class="lineNum">     206 </span><span class="lineCov">         40 :     this-&gt;path_.push(std::make_pair(g.first, g.second));</span>
+<span class="lineNum">     207 </span><span class="lineCov">         40 :     g = this-&gt;node_information[g.first][g.second].parent;</span>
+<span class="lineNum">     208 </span>            :   }
+<span class="lineNum">     209 </span><span class="lineCov">          5 : }</span>
+<span class="lineNum">     210 </span>            : 
+<span class="lineNum">     211 </span>            : /* ----------------------------------------------------------------*/
+<span class="lineNum">     212 </span>            : /**
+<span class="lineNum">     213 </span>            :  * @brief  To move in respective direction to produce more children
+<span class="lineNum">     214 </span>            :  *
+<span class="lineNum">     215 </span>            :  * @param position
+<span class="lineNum">     216 </span>            :  *
+<span class="lineNum">     217 </span>            :  * @return new location of the child if robot moves
+<a name="218"><span class="lineNum">     218 </span>            :  */</a>
+<span class="lineNum">     219 </span>            : /* ----------------------------------------------------------------*/
+<span class="lineNum">     220 </span><span class="lineCov">         76 : std::pair&lt;int, int&gt; optimalPlanner::goTop(std::pair&lt;int, int&gt; position) {</span>
+<span class="lineNum">     221 </span><span class="lineCov">         76 :   return std::make_pair((position.first - 1), (position.second));</span>
+<span class="lineNum">     222 </span>            : }
+<span class="lineNum">     223 </span>            : /* ----------------------------------------------------------------*/
+<span class="lineNum">     224 </span>            : /**
+<span class="lineNum">     225 </span>            :  * @brief  To move in respective direction to produce more children
+<span class="lineNum">     226 </span>            :  *
+<span class="lineNum">     227 </span>            :  * @param position
+<span class="lineNum">     228 </span>            :  *
+<span class="lineNum">     229 </span>            :  * @return new location of the child if robot moves
+<a name="230"><span class="lineNum">     230 </span>            :  */</a>
+<span class="lineNum">     231 </span>            : /* ----------------------------------------------------------------*/
+<span class="lineNum">     232 </span><span class="lineCov">         76 : std::pair&lt;int, int&gt; optimalPlanner::goLeft(std::pair&lt;int, int&gt; position) {</span>
+<span class="lineNum">     233 </span><span class="lineCov">         76 :   return std::make_pair((position.first), (position.second - 1));</span>
+<span class="lineNum">     234 </span>            : }
+<span class="lineNum">     235 </span>            : /* ----------------------------------------------------------------*/
+<span class="lineNum">     236 </span>            : /**
+<span class="lineNum">     237 </span>            :  * @brief  To move in respective direction to produce more children
+<span class="lineNum">     238 </span>            :  *
+<span class="lineNum">     239 </span>            :  * @param position
+<span class="lineNum">     240 </span>            :  *
+<span class="lineNum">     241 </span>            :  * @return new location of the child if robot moves
+<a name="242"><span class="lineNum">     242 </span>            :  */</a>
+<span class="lineNum">     243 </span>            : /* ----------------------------------------------------------------*/
+<span class="lineNum">     244 </span><span class="lineCov">         76 : std::pair&lt;int, int&gt; optimalPlanner::goBottom(std::pair&lt;int, int&gt; position) {</span>
+<span class="lineNum">     245 </span><span class="lineCov">         76 :   return std::make_pair((position.first + 1), (position.second));</span>
+<span class="lineNum">     246 </span>            : }
+<span class="lineNum">     247 </span>            : /* ----------------------------------------------------------------*/
+<span class="lineNum">     248 </span>            : /**
+<span class="lineNum">     249 </span>            :  * @brief  To move in respective direction to produce more children
+<span class="lineNum">     250 </span>            :  *
+<span class="lineNum">     251 </span>            :  * @param position
+<span class="lineNum">     252 </span>            :  *
+<span class="lineNum">     253 </span>            :  * @return new location of the child if robot moves
+<a name="254"><span class="lineNum">     254 </span>            :  */</a>
+<span class="lineNum">     255 </span>            : /* ----------------------------------------------------------------*/
+<span class="lineNum">     256 </span><span class="lineCov">         76 : std::pair&lt;int, int&gt; optimalPlanner::goRight(std::pair&lt;int, int&gt; position) {</span>
+<span class="lineNum">     257 </span><span class="lineCov">         76 :   return std::make_pair((position.first), (position.second + 1));</span>
+<span class="lineNum">     258 </span>            : }
+<span class="lineNum">     259 </span>            : 
+<span class="lineNum">     260 </span>            : /* ----------------------------------------------------------------*/
+<span class="lineNum">     261 </span>            : /**
+<span class="lineNum">     262 </span>            :  * @brief
+<span class="lineNum">     263 </span>            :  *
+<span class="lineNum">     264 </span>            :  * @param child
+<span class="lineNum">     265 </span>            :  * @param parent
+<a name="266"><span class="lineNum">     266 </span>            :  */</a>
+<span class="lineNum">     267 </span>            : /* ----------------------------------------------------------------*/
+<span class="lineNum">     268 </span><span class="lineCov">        304 : void optimalPlanner::moveAndUpdateNodes(std::pair&lt;int, int&gt; child,</span>
+<span class="lineNum">     269 </span>            :                                         std::pair&lt;int, int&gt; parent) {
+<span class="lineNum">     270 </span>            :   // Ignore if child is not valid
+<span class="lineNum">     271 </span><span class="lineCov">        304 :   if (isValid(child)) {</span>
+<span class="lineNum">     272 </span>            :     // check if we reached goal or not
+<span class="lineNum">     273 </span><span class="lineCov">        259 :     if (isItGoalYet(child)) {</span>
+<span class="lineNum">     274 </span><span class="lineCov">          5 :       this-&gt;node_information[child.first][child.second].parent = parent;</span>
+<span class="lineNum">     275 </span><span class="lineCov">          5 :       this-&gt;found_goal = true;</span>
+<span class="lineNum">     276 </span><span class="lineCov">          5 :       return;</span>
+<span class="lineNum">     277 </span>            :       // if we didnot reach goal , check if it was visited before as in
+<span class="lineNum">     278 </span>            :       // closed list
+<span class="lineNum">     279 </span>            :       // and if the child is blocked
+<span class="lineNum">     280 </span><span class="lineCov">        413 :     } else if (!(this-&gt;closed_list[child.first][child.second]) &amp;&amp;</span>
+<span class="lineNum">     281 </span><span class="lineCov">        159 :                !isBlocked(child)) {</span>
+<span class="lineNum">     282 </span>            :       double g_new =
+<span class="lineNum">     283 </span><span class="lineCov">        114 :           this-&gt;node_information[parent.first][parent.second].g_cost + 1;</span>
+<span class="lineNum">     284 </span><span class="lineCov">        114 :       double h_new = this-&gt;calculateHCost(child);</span>
+<span class="lineNum">     285 </span><span class="lineCov">        114 :       double f_new = g_new + h_new;</span>
+<span class="lineNum">     286 </span>            :       //
+<span class="lineNum">     287 </span>            :       // Update the least cost to the respective location
+<span class="lineNum">     288 </span>            :       //
+<span class="lineNum">     289 </span>            :       // If it isn’t on the open list, add it to
+<span class="lineNum">     290 </span>            :       // the open list. Make the current square
+<span class="lineNum">     291 </span>            :       // the parent of this location, Record the
+<span class="lineNum">     292 </span>            :       // f, g, and h costs of the square cell
+<span class="lineNum">     293 </span>            :       //                OR
+<span class="lineNum">     294 </span>            :       // If it is on the open list already, check
+<span class="lineNum">     295 </span>            :       // to see if this path to that location  is better,
+<span class="lineNum">     296 </span>            :       // using 'f' cost as the measure. /
+<span class="lineNum">     297 </span><span class="lineCov">        143 :       if (this-&gt;node_information[child.first][child.second].f_cost == FLT_MAX ||</span>
+<span class="lineNum">     298 </span><span class="lineCov">         29 :           this-&gt;node_information[child.first][child.second].f_cost &lt; f_new) {</span>
+<span class="lineNum">     299 </span><span class="lineCov">         85 :         this-&gt;open_list.insert(std::make_pair(f_new, child));</span>
+<span class="lineNum">     300 </span><span class="lineCov">         85 :         this-&gt;node_information[child.first][child.second].f_cost = f_new;</span>
+<span class="lineNum">     301 </span><span class="lineCov">         85 :         this-&gt;node_information[child.first][child.second].g_cost = g_new;</span>
+<span class="lineNum">     302 </span><span class="lineCov">         85 :         this-&gt;node_information[child.first][child.second].h_cost = h_new;</span>
+<span class="lineNum">     303 </span><span class="lineCov">         85 :         this-&gt;node_information[child.first][child.second].parent = parent;</span>
+<span class="lineNum">     304 </span>            :       }
+<span class="lineNum">     305 </span>            :     }
+<span class="lineNum">     306 </span>            :   }
+<span class="lineNum">     307 </span>            : }
+<span class="lineNum">     308 </span>            : /* ----------------------------------------------------------------*/
+<span class="lineNum">     309 </span>            : /**
+<span class="lineNum">     310 </span>            :  * @brief  TO search using Astar Algorithm
+<span class="lineNum">     311 </span>            :  *
+<span class="lineNum">     312 </span>            :  * @param world_map
+<span class="lineNum">     313 </span>            :  * @param robot_pose
+<span class="lineNum">     314 </span>            :  * @param goal_pose
+<span class="lineNum">     315 </span>            :  *
+<span class="lineNum">     316 </span>            :  * @return Path
+<span class="lineNum">     317 </span>            :  */
+<a name="318"><span class="lineNum">     318 </span>            : /* ----------------------------------------------------------------*/</a>
+<span class="lineNum">     319 </span>            : std::stack&lt;std::pair&lt;int, int&gt;&gt;
+<span class="lineNum">     320 </span><span class="lineCov">          5 : optimalPlanner::search(std::vector&lt;std::vector&lt;int&gt;&gt; world_map,</span>
+<span class="lineNum">     321 </span>            :                        std::pair&lt;int, int&gt; robot_pose,
+<span class="lineNum">     322 </span>            :                        std::pair&lt;int, int&gt; goal_pose) {
+<span class="lineNum">     323 </span>            :   // Update all this members and do sanity checks
+<span class="lineNum">     324 </span>            : 
+<span class="lineNum">     325 </span><span class="lineCov">          5 :   this-&gt;world_map_ = world_map;</span>
+<span class="lineNum">     326 </span><span class="lineCov">          5 :   this-&gt;start_position_ = robot_pose;</span>
+<span class="lineNum">     327 </span><span class="lineCov">          5 :   this-&gt;goal_position_ = goal_pose;</span>
+<span class="lineNum">     328 </span><span class="lineCov">          5 :   this-&gt;y_length = int(world_map.size()) - 1;</span>
+<span class="lineNum">     329 </span><span class="lineCov">          5 :   this-&gt;x_length = int(world_map[1].size()) - 1;</span>
+<span class="lineNum">     330 </span>            : 
+<span class="lineNum">     331 </span>            :   // Sanity checks for the start and goal position
+<span class="lineNum">     332 </span><span class="lineCov">          5 :   if (!isValid(this-&gt;start_position_)) {</span>
+<span class="lineNum">     333 </span><span class="lineNoCov">          0 :     std::cout &lt;&lt; &quot;invalid robot pose&quot; &lt;&lt; std::endl;</span>
+<span class="lineNum">     334 </span>            :   }
+<span class="lineNum">     335 </span><span class="lineCov">          5 :   if (!isValid(this-&gt;goal_position_)) {</span>
+<span class="lineNum">     336 </span><span class="lineNoCov">          0 :     std::cout &lt;&lt; &quot;invalid goal pose&quot; &lt;&lt; std::endl;</span>
+<span class="lineNum">     337 </span>            :   }
+<span class="lineNum">     338 </span>            : 
+<span class="lineNum">     339 </span><span class="lineCov">          5 :   if (isBlocked(this-&gt;start_position_) || isBlocked(this-&gt;goal_position_)) {</span>
+<span class="lineNum">     340 </span><span class="lineNoCov">          0 :     std::cout &lt;&lt; &quot;wrong start/goal coordinates entered&quot; &lt;&lt; std::endl;</span>
+<span class="lineNum">     341 </span>            :   }
+<span class="lineNum">     342 </span>            : 
+<span class="lineNum">     343 </span><span class="lineCov">          5 :   if (isItGoalYet(this-&gt;start_position_)) {</span>
+<span class="lineNum">     344 </span><span class="lineNoCov">          0 :     std::cout &lt;&lt; &quot;Already at goal position&quot; &lt;&lt; std::endl;</span>
+<span class="lineNum">     345 </span>            :   }
+<span class="lineNum">     346 </span>            :   // Inistialise closed list with false of size same as map
+<span class="lineNum">     347 </span>            :   // to store if location is visited or not
+<span class="lineNum">     348 </span>            :   //
+<span class="lineNum">     349 </span><span class="lineCov">          5 :   std::vector&lt;std::vector&lt;bool&gt;&gt; v(y_length + 1,</span>
+<span class="lineNum">     350 </span><span class="lineCov">         15 :                                    std::vector&lt;bool&gt;(x_length + 1, false));</span>
+<span class="lineNum">     351 </span>            : 
+<span class="lineNum">     352 </span><span class="lineCov">          5 :   this-&gt;closed_list = v;</span>
+<span class="lineNum">     353 </span>            :   // INitialising all nodes in nodesInformation member to acess them
+<span class="lineNum">     354 </span>            :   // individually
+<span class="lineNum">     355 </span>            :   //
+<span class="lineNum">     356 </span><span class="lineCov">          5 :   node fake_node;</span>
+<span class="lineNum">     357 </span><span class="lineCov">          5 :   fake_node.f_cost = FLT_MAX;</span>
+<span class="lineNum">     358 </span><span class="lineCov">          5 :   fake_node.g_cost = FLT_MAX;</span>
+<span class="lineNum">     359 </span><span class="lineCov">          5 :   fake_node.h_cost = FLT_MAX;</span>
+<span class="lineNum">     360 </span><span class="lineCov">          5 :   fake_node.location_ = std::make_pair(-1, -1);</span>
+<span class="lineNum">     361 </span><span class="lineCov">          5 :   fake_node.parent = std::make_pair(-1, -1);</span>
+<span class="lineNum">     362 </span>            :   std::vector&lt;std::vector&lt;node&gt;&gt; fake_info(
+<span class="lineNum">     363 </span><span class="lineCov">         10 :       y_length + 1, std::vector&lt;node&gt;(x_length + 1, fake_node));</span>
+<span class="lineNum">     364 </span><span class="lineCov">          5 :   this-&gt;node_information = fake_info;</span>
+<span class="lineNum">     365 </span>            : 
+<span class="lineNum">     366 </span>            :   // Initialising the search by storing first/start node in nodeinfo and
+<span class="lineNum">     367 </span>            :   // in openlist
+<span class="lineNum">     368 </span><span class="lineCov">          5 :   int i = this-&gt;start_position_.first;</span>
+<span class="lineNum">     369 </span><span class="lineCov">          5 :   int j = this-&gt;start_position_.second;</span>
+<span class="lineNum">     370 </span><span class="lineCov">          5 :   this-&gt;node_information[i][j].f_cost = 0.0;</span>
+<span class="lineNum">     371 </span><span class="lineCov">          5 :   this-&gt;node_information[i][j].g_cost = 0.0;</span>
+<span class="lineNum">     372 </span><span class="lineCov">          5 :   this-&gt;node_information[i][j].h_cost = 0.0;</span>
+<span class="lineNum">     373 </span><span class="lineCov">          5 :   this-&gt;node_information[i][j].parent = this-&gt;start_position_;</span>
+<span class="lineNum">     374 </span>            : 
+<span class="lineNum">     375 </span><span class="lineCov">          5 :   this-&gt;open_list.insert(std::make_pair(0.0, this-&gt;start_position_));</span>
+<span class="lineNum">     376 </span><span class="lineCov">          5 :   this-&gt;found_goal = false;</span>
+<span class="lineNum">     377 </span>            : 
+<span class="lineNum">     378 </span>            :   // checking all the elements in openlist until goal is reached
+<span class="lineNum">     379 </span>            :   //
+<span class="lineNum">     380 </span><span class="lineCov">        145 :   while (!open_list.empty()) {</span>
+<span class="lineNum">     381 </span><span class="lineCov">         75 :     DoublePair first_element = *this-&gt;open_list.begin();</span>
+<span class="lineNum">     382 </span><span class="lineCov">         75 :     this-&gt;open_list.erase(this-&gt;open_list.begin());</span>
+<span class="lineNum">     383 </span>            : 
+<span class="lineNum">     384 </span><span class="lineCov">         75 :     i = first_element.second.first;</span>
+<span class="lineNum">     385 </span><span class="lineCov">         75 :     j = first_element.second.second;</span>
+<span class="lineNum">     386 </span>            :     //
+<span class="lineNum">     387 </span>            :     // moving in all locations and updating nodes in nodesinformation
+<span class="lineNum">     388 </span>            :     // and checking if goal is reached
+<span class="lineNum">     389 </span>            :     //
+<span class="lineNum">     390 </span><span class="lineCov">         75 :     this-&gt;closed_list[i][j] = true;</span>
+<span class="lineNum">     391 </span><span class="lineCov">         75 :     std::pair&lt;int, int&gt; temp = goTop(first_element.second);</span>
+<span class="lineNum">     392 </span><span class="lineCov">         75 :     moveAndUpdateNodes(temp, first_element.second);</span>
+<span class="lineNum">     393 </span><span class="lineCov">         75 :     if (found_goal == true) {</span>
+<span class="lineNum">     394 </span><span class="lineNoCov">          0 :       trackPath();</span>
+<span class="lineNum">     395 </span><span class="lineCov">          5 :       break;</span>
+<span class="lineNum">     396 </span>            :     }
+<span class="lineNum">     397 </span>            : 
+<span class="lineNum">     398 </span><span class="lineCov">         75 :     temp = goLeft(first_element.second);</span>
+<span class="lineNum">     399 </span><span class="lineCov">         75 :     moveAndUpdateNodes(temp, first_element.second);</span>
+<span class="lineNum">     400 </span><span class="lineCov">         75 :     if (found_goal == true) {</span>
+<span class="lineNum">     401 </span><span class="lineNoCov">          0 :       trackPath();</span>
+<span class="lineNum">     402 </span><span class="lineNoCov">          0 :       break;</span>
+<span class="lineNum">     403 </span>            :     }
+<span class="lineNum">     404 </span>            : 
+<span class="lineNum">     405 </span><span class="lineCov">         75 :     temp = goBottom(first_element.second);</span>
+<span class="lineNum">     406 </span><span class="lineCov">         75 :     moveAndUpdateNodes(temp, first_element.second);</span>
+<span class="lineNum">     407 </span><span class="lineCov">         75 :     if (found_goal == true) {</span>
+<span class="lineNum">     408 </span><span class="lineNoCov">          0 :       trackPath();</span>
+<span class="lineNum">     409 </span><span class="lineNoCov">          0 :       break;</span>
+<span class="lineNum">     410 </span>            :     }
+<span class="lineNum">     411 </span>            : 
+<span class="lineNum">     412 </span><span class="lineCov">         75 :     temp = goRight(first_element.second);</span>
+<span class="lineNum">     413 </span><span class="lineCov">         75 :     moveAndUpdateNodes(temp, first_element.second);</span>
+<span class="lineNum">     414 </span><span class="lineCov">         75 :     if (found_goal == true) {</span>
+<span class="lineNum">     415 </span><span class="lineCov">          5 :       trackPath();</span>
+<span class="lineNum">     416 </span><span class="lineCov">          5 :       break;</span>
+<span class="lineNum">     417 </span>            :     }
+<span class="lineNum">     418 </span>            :   }
+<span class="lineNum">     419 </span>            :   // check if goal is reached or not using found_goal flag
+<span class="lineNum">     420 </span><span class="lineCov">          5 :   if (found_goal == false) {</span>
+<span class="lineNum">     421 </span><span class="lineNoCov">          0 :     std::cout &lt;&lt; &quot;no path found&quot; &lt;&lt; std::endl;</span>
+<span class="lineNum">     422 </span>            :   }
+<a name="423"><span class="lineNum">     423 </span><span class="lineCov">          5 :   this-&gt;path_.push(start_position_);</span></a>
+<span class="lineNum">     424 </span><span class="lineCov">         10 :   return this-&gt;path_;</span>
+<span class="lineNum">     425 </span><span class="lineCov">          3 : }</span>
+</pre>
+      </td>
+    </tr>
+  </table>
+  <br>
+
+  <table width="100%" border=0 cellspacing=0 cellpadding=0>
+    <tr><td class="ruler"><img src="../glass.png" width=3 height=3 alt=""></td></tr>
+    <tr><td class="versionInfo">Generated by: <a href="http://ltp.sourceforge.net/coverage/lcov.php" target="_parent">LCOV version 1.12</a></td></tr>
+  </table>
+  <br>
+
+</body>
+</html>

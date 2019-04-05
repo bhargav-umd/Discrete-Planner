@@ -1,0 +1,496 @@
+\hypertarget{classoptimalPlanner}{}\section{optimal\+Planner Class Reference}
+\label{classoptimalPlanner}\index{optimal\+Planner@{optimal\+Planner}}
+
+
+Optimal Planner class members declaration we are using Astar algorithm for finding optimal path.  
+
+
+
+
+{\ttfamily \#include $<$optimal\+Planner.\+h$>$}
+
+\subsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\hyperlink{classoptimalPlanner_a7e8d3560aee12ecf15c0b12e44a657d1}{optimal\+Planner} ()
+\begin{DoxyCompactList}\small\item\em Default Constructor for the class. \end{DoxyCompactList}\item 
+\hyperlink{classoptimalPlanner_a00822a341c20c01a0f13cf71700023ae}{optimal\+Planner} (std\+::vector$<$ std\+::vector$<$ int $>$$>$, std\+::pair$<$ int, int $>$, std\+::pair$<$ int, int $>$)
+\begin{DoxyCompactList}\small\item\em Parameterised Constructor with given inputs. \end{DoxyCompactList}\item 
+std\+::stack$<$ std\+::pair$<$ int, int $>$ $>$ \hyperlink{classoptimalPlanner_a234f4f638c9fa4fb3eb539a4c5f715a5}{search} (std\+::vector$<$ std\+::vector$<$ int $>$$>$, std\+::pair$<$ int, int $>$, std\+::pair$<$ int, int $>$)
+\begin{DoxyCompactList}\small\item\em Searches the path using astar algorithm. \end{DoxyCompactList}\item 
+std\+::pair$<$ int, int $>$ \hyperlink{classoptimalPlanner_afb26d5b89c5a4cd5caec0ada6bd1921b}{get\+Starting\+Point} ()
+\begin{DoxyCompactList}\small\item\em getter function to get start location of robot \end{DoxyCompactList}\item 
+std\+::pair$<$ int, int $>$ \hyperlink{classoptimalPlanner_a2cd6489e659be67503f007183cd8be05}{get\+Goal\+Point} ()
+\begin{DoxyCompactList}\small\item\em gettter function for Goal Point \end{DoxyCompactList}\item 
+int \hyperlink{classoptimalPlanner_a35486c87400cea9e455ef73246844a47}{get\+X\+Length} ()
+\begin{DoxyCompactList}\small\item\em getter fucntion for X length \end{DoxyCompactList}\item 
+int \hyperlink{classoptimalPlanner_afc7297bd9b3a207aedc7b8dd260b5270}{get\+Y\+Length} ()
+\begin{DoxyCompactList}\small\item\em getter function for Y Length \end{DoxyCompactList}\item 
+\hyperlink{structnode}{node} \hyperlink{classoptimalPlanner_a38869628f0c69e3a224de8730ca70bce}{get\+Node\+Information} (std\+::pair$<$ int, int $>$)
+\begin{DoxyCompactList}\small\item\em \hyperlink{structNode}{Node} I\+Nformation stores all nodes at respective locations. \end{DoxyCompactList}\item 
+bool \hyperlink{classoptimalPlanner_a0b4a2dcda06b4f230aae5fcd056270d8}{is\+Valid} (std\+::pair$<$ int, int $>$)
+\begin{DoxyCompactList}\small\item\em To check if the given valid by checking boundaries. \end{DoxyCompactList}\item 
+bool \hyperlink{classoptimalPlanner_affd923e57309f44ce1734b652b40103c}{is\+Blocked} (std\+::pair$<$ int, int $>$)
+\begin{DoxyCompactList}\small\item\em to check if the location has obstacle or not \end{DoxyCompactList}\item 
+bool \hyperlink{classoptimalPlanner_aa8e96d238d9d57f486453816d221df25}{is\+It\+Goal\+Yet} (std\+::pair$<$ int, int $>$)
+\begin{DoxyCompactList}\small\item\em To check if the location is goal or not. \end{DoxyCompactList}\item 
+double \hyperlink{classoptimalPlanner_a2ca65cc3a34ea39614c0da1fb4ab1189}{calculate\+H\+Cost} (std\+::pair$<$ int, int $>$)
+\begin{DoxyCompactList}\small\item\em To calculate H Cost, i.\+e, cost to reach the goal. \end{DoxyCompactList}\item 
+void \hyperlink{classoptimalPlanner_a9a6892e6beceed5ca588d1bf46b7d40b}{track\+Path} ()
+\begin{DoxyCompactList}\small\item\em To track the path by tracking individual parents. \end{DoxyCompactList}\item 
+void \hyperlink{classoptimalPlanner_a5f886dd1ad67dd6a8f0d747c316830e2}{move\+And\+Update\+Nodes} (std\+::pair$<$ int, int $>$, std\+::pair$<$ int, int $>$)
+\begin{DoxyCompactList}\small\item\em Update node informations as we explore the map with all costs. \end{DoxyCompactList}\item 
+std\+::pair$<$ int, int $>$ \hyperlink{classoptimalPlanner_a99a4e25f991be60cacc9dd74af0a41b8}{go\+Top} (std\+::pair$<$ int, int $>$)
+\begin{DoxyCompactList}\small\item\em To move in respective location. \end{DoxyCompactList}\item 
+std\+::pair$<$ int, int $>$ \hyperlink{classoptimalPlanner_ae846f7b527b1aeedada33c12bf620ccb}{go\+Left} (std\+::pair$<$ int, int $>$)
+\begin{DoxyCompactList}\small\item\em To move in respective location. \end{DoxyCompactList}\item 
+std\+::pair$<$ int, int $>$ \hyperlink{classoptimalPlanner_a921f457476a499fabdc4796057b7b47f}{go\+Bottom} (std\+::pair$<$ int, int $>$)
+\begin{DoxyCompactList}\small\item\em To move in respective location. \end{DoxyCompactList}\item 
+std\+::pair$<$ int, int $>$ \hyperlink{classoptimalPlanner_af1d87157d27807b2276c2e4a7536c12e}{go\+Right} (std\+::pair$<$ int, int $>$)
+\begin{DoxyCompactList}\small\item\em To move in respective location. \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\subsection{Detailed Description}
+Optimal Planner class members declaration we are using Astar algorithm for finding optimal path. 
+
+\subsection{Constructor \& Destructor Documentation}
+\index{optimal\+Planner@{optimal\+Planner}!optimal\+Planner@{optimal\+Planner}}
+\index{optimal\+Planner@{optimal\+Planner}!optimal\+Planner@{optimal\+Planner}}
+\subsubsection[{\texorpdfstring{optimal\+Planner()}{optimalPlanner()}}]{\setlength{\rightskip}{0pt plus 5cm}optimal\+Planner\+::optimal\+Planner (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+)}\hypertarget{classoptimalPlanner_a7e8d3560aee12ecf15c0b12e44a657d1}{}\label{classoptimalPlanner_a7e8d3560aee12ecf15c0b12e44a657d1}
+
+
+Default Constructor for the class. 
+
+Default Planner for optimal planner class. \index{optimal\+Planner@{optimal\+Planner}!optimal\+Planner@{optimal\+Planner}}
+\index{optimal\+Planner@{optimal\+Planner}!optimal\+Planner@{optimal\+Planner}}
+\subsubsection[{\texorpdfstring{optimal\+Planner(std\+::vector$<$ std\+::vector$<$ int $>$$>$, std\+::pair$<$ int, int $>$, std\+::pair$<$ int, int $>$)}{optimalPlanner(std::vector< std::vector< int >>, std::pair< int, int >, std::pair< int, int >)}}]{\setlength{\rightskip}{0pt plus 5cm}optimal\+Planner\+::optimal\+Planner (
+\begin{DoxyParamCaption}
+\item[{std\+::vector$<$ std\+::vector$<$ int $>$$>$}]{world\+\_\+map, }
+\item[{std\+::pair$<$ int, int $>$}]{robot\+\_\+pose, }
+\item[{std\+::pair$<$ int, int $>$}]{goal\+\_\+pose}
+\end{DoxyParamCaption}
+)}\hypertarget{classoptimalPlanner_a00822a341c20c01a0f13cf71700023ae}{}\label{classoptimalPlanner_a00822a341c20c01a0f13cf71700023ae}
+
+
+Parameterised Constructor with given inputs. 
+
+Parameterised Constructor for the class.
+
+
+\begin{DoxyParams}{Parameters}
+{\em std\+::vector$<$std\+::vector$<$int$>$$>$} & world map \\
+\hline
+{\em std\+::pair} & robot start location \\
+\hline
+{\em std\+::pair} & robot goal location\\
+\hline
+{\em world\+\_\+map} & \\
+\hline
+{\em robot\+\_\+pose} & \\
+\hline
+{\em goal\+\_\+pose} & \\
+\hline
+\end{DoxyParams}
+
+
+\subsection{Member Function Documentation}
+\index{optimal\+Planner@{optimal\+Planner}!calculate\+H\+Cost@{calculate\+H\+Cost}}
+\index{calculate\+H\+Cost@{calculate\+H\+Cost}!optimal\+Planner@{optimal\+Planner}}
+\subsubsection[{\texorpdfstring{calculate\+H\+Cost(std\+::pair$<$ int, int $>$)}{calculateHCost(std::pair< int, int >)}}]{\setlength{\rightskip}{0pt plus 5cm}double optimal\+Planner\+::calculate\+H\+Cost (
+\begin{DoxyParamCaption}
+\item[{std\+::pair$<$ int, int $>$}]{position}
+\end{DoxyParamCaption}
+)}\hypertarget{classoptimalPlanner_a2ca65cc3a34ea39614c0da1fb4ab1189}{}\label{classoptimalPlanner_a2ca65cc3a34ea39614c0da1fb4ab1189}
+
+
+To calculate H Cost, i.\+e, cost to reach the goal. 
+
+Using Manhattan D\+Istance to calculate H cost for the location in map.
+
+
+\begin{DoxyParams}{Parameters}
+{\em std\+::pair$<$int,int$>$} & location coordinates\\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+H cost of the location .
+\end{DoxyReturn}
+
+\begin{DoxyParams}{Parameters}
+{\em position} & \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+double , Hcost value 
+\end{DoxyReturn}
+\index{optimal\+Planner@{optimal\+Planner}!get\+Goal\+Point@{get\+Goal\+Point}}
+\index{get\+Goal\+Point@{get\+Goal\+Point}!optimal\+Planner@{optimal\+Planner}}
+\subsubsection[{\texorpdfstring{get\+Goal\+Point()}{getGoalPoint()}}]{\setlength{\rightskip}{0pt plus 5cm}std\+::pair$<$ int, int $>$ optimal\+Planner\+::get\+Goal\+Point (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+)}\hypertarget{classoptimalPlanner_a2cd6489e659be67503f007183cd8be05}{}\label{classoptimalPlanner_a2cd6489e659be67503f007183cd8be05}
+
+
+gettter function for Goal Point 
+
+\begin{DoxyReturn}{Returns}
+destination of the robot 
+\end{DoxyReturn}
+\index{optimal\+Planner@{optimal\+Planner}!get\+Node\+Information@{get\+Node\+Information}}
+\index{get\+Node\+Information@{get\+Node\+Information}!optimal\+Planner@{optimal\+Planner}}
+\subsubsection[{\texorpdfstring{get\+Node\+Information(std\+::pair$<$ int, int $>$)}{getNodeInformation(std::pair< int, int >)}}]{\setlength{\rightskip}{0pt plus 5cm}{\bf node} optimal\+Planner\+::get\+Node\+Information (
+\begin{DoxyParamCaption}
+\item[{std\+::pair$<$ int, int $>$}]{position}
+\end{DoxyParamCaption}
+)}\hypertarget{classoptimalPlanner_a38869628f0c69e3a224de8730ca70bce}{}\label{classoptimalPlanner_a38869628f0c69e3a224de8730ca70bce}
+
+
+\hyperlink{structNode}{Node} I\+Nformation stores all nodes at respective locations. 
+
+Node\+Information stores all nodes informatin , locaiton and all costs.
+
+
+\begin{DoxyParams}{Parameters}
+{\em std\+::pair$<$int,int$>$} & node information needed\\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+node at respective location
+\end{DoxyReturn}
+
+\begin{DoxyParams}{Parameters}
+{\em position} & \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+find node at that location and return it as output 
+\end{DoxyReturn}
+\index{optimal\+Planner@{optimal\+Planner}!get\+Starting\+Point@{get\+Starting\+Point}}
+\index{get\+Starting\+Point@{get\+Starting\+Point}!optimal\+Planner@{optimal\+Planner}}
+\subsubsection[{\texorpdfstring{get\+Starting\+Point()}{getStartingPoint()}}]{\setlength{\rightskip}{0pt plus 5cm}std\+::pair$<$ int, int $>$ optimal\+Planner\+::get\+Starting\+Point (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+)}\hypertarget{classoptimalPlanner_afb26d5b89c5a4cd5caec0ada6bd1921b}{}\label{classoptimalPlanner_afb26d5b89c5a4cd5caec0ada6bd1921b}
+
+
+getter function to get start location of robot 
+
+\begin{DoxyReturn}{Returns}
+robot starting location 
+\end{DoxyReturn}
+\index{optimal\+Planner@{optimal\+Planner}!get\+X\+Length@{get\+X\+Length}}
+\index{get\+X\+Length@{get\+X\+Length}!optimal\+Planner@{optimal\+Planner}}
+\subsubsection[{\texorpdfstring{get\+X\+Length()}{getXLength()}}]{\setlength{\rightskip}{0pt plus 5cm}int optimal\+Planner\+::get\+X\+Length (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+)}\hypertarget{classoptimalPlanner_a35486c87400cea9e455ef73246844a47}{}\label{classoptimalPlanner_a35486c87400cea9e455ef73246844a47}
+
+
+getter fucntion for X length 
+
+\begin{DoxyReturn}{Returns}
+x-\/length of the world map 
+\end{DoxyReturn}
+\index{optimal\+Planner@{optimal\+Planner}!get\+Y\+Length@{get\+Y\+Length}}
+\index{get\+Y\+Length@{get\+Y\+Length}!optimal\+Planner@{optimal\+Planner}}
+\subsubsection[{\texorpdfstring{get\+Y\+Length()}{getYLength()}}]{\setlength{\rightskip}{0pt plus 5cm}int optimal\+Planner\+::get\+Y\+Length (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+)}\hypertarget{classoptimalPlanner_afc7297bd9b3a207aedc7b8dd260b5270}{}\label{classoptimalPlanner_afc7297bd9b3a207aedc7b8dd260b5270}
+
+
+getter function for Y Length 
+
+\begin{DoxyReturn}{Returns}
+depth of the world map 
+\end{DoxyReturn}
+\index{optimal\+Planner@{optimal\+Planner}!go\+Bottom@{go\+Bottom}}
+\index{go\+Bottom@{go\+Bottom}!optimal\+Planner@{optimal\+Planner}}
+\subsubsection[{\texorpdfstring{go\+Bottom(std\+::pair$<$ int, int $>$)}{goBottom(std::pair< int, int >)}}]{\setlength{\rightskip}{0pt plus 5cm}std\+::pair$<$ int, int $>$ optimal\+Planner\+::go\+Bottom (
+\begin{DoxyParamCaption}
+\item[{std\+::pair$<$ int, int $>$}]{position}
+\end{DoxyParamCaption}
+)}\hypertarget{classoptimalPlanner_a921f457476a499fabdc4796057b7b47f}{}\label{classoptimalPlanner_a921f457476a499fabdc4796057b7b47f}
+
+
+To move in respective location. 
+
+To move in respective direction to produce more children.
+
+
+\begin{DoxyParams}{Parameters}
+{\em std\+::pair} & location to be moved\\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+new location
+\end{DoxyReturn}
+
+\begin{DoxyParams}{Parameters}
+{\em position} & \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+new location of the child if robot moves 
+\end{DoxyReturn}
+\index{optimal\+Planner@{optimal\+Planner}!go\+Left@{go\+Left}}
+\index{go\+Left@{go\+Left}!optimal\+Planner@{optimal\+Planner}}
+\subsubsection[{\texorpdfstring{go\+Left(std\+::pair$<$ int, int $>$)}{goLeft(std::pair< int, int >)}}]{\setlength{\rightskip}{0pt plus 5cm}std\+::pair$<$ int, int $>$ optimal\+Planner\+::go\+Left (
+\begin{DoxyParamCaption}
+\item[{std\+::pair$<$ int, int $>$}]{position}
+\end{DoxyParamCaption}
+)}\hypertarget{classoptimalPlanner_ae846f7b527b1aeedada33c12bf620ccb}{}\label{classoptimalPlanner_ae846f7b527b1aeedada33c12bf620ccb}
+
+
+To move in respective location. 
+
+To move in respective direction to produce more children.
+
+
+\begin{DoxyParams}{Parameters}
+{\em std\+::pair} & location to be moved\\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+new location
+\end{DoxyReturn}
+
+\begin{DoxyParams}{Parameters}
+{\em position} & \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+new location of the child if robot moves 
+\end{DoxyReturn}
+\index{optimal\+Planner@{optimal\+Planner}!go\+Right@{go\+Right}}
+\index{go\+Right@{go\+Right}!optimal\+Planner@{optimal\+Planner}}
+\subsubsection[{\texorpdfstring{go\+Right(std\+::pair$<$ int, int $>$)}{goRight(std::pair< int, int >)}}]{\setlength{\rightskip}{0pt plus 5cm}std\+::pair$<$ int, int $>$ optimal\+Planner\+::go\+Right (
+\begin{DoxyParamCaption}
+\item[{std\+::pair$<$ int, int $>$}]{position}
+\end{DoxyParamCaption}
+)}\hypertarget{classoptimalPlanner_af1d87157d27807b2276c2e4a7536c12e}{}\label{classoptimalPlanner_af1d87157d27807b2276c2e4a7536c12e}
+
+
+To move in respective location. 
+
+To move in respective direction to produce more children.
+
+
+\begin{DoxyParams}{Parameters}
+{\em std\+::pair} & location to be moved\\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+new location
+\end{DoxyReturn}
+
+\begin{DoxyParams}{Parameters}
+{\em position} & \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+new location of the child if robot moves 
+\end{DoxyReturn}
+\index{optimal\+Planner@{optimal\+Planner}!go\+Top@{go\+Top}}
+\index{go\+Top@{go\+Top}!optimal\+Planner@{optimal\+Planner}}
+\subsubsection[{\texorpdfstring{go\+Top(std\+::pair$<$ int, int $>$)}{goTop(std::pair< int, int >)}}]{\setlength{\rightskip}{0pt plus 5cm}std\+::pair$<$ int, int $>$ optimal\+Planner\+::go\+Top (
+\begin{DoxyParamCaption}
+\item[{std\+::pair$<$ int, int $>$}]{position}
+\end{DoxyParamCaption}
+)}\hypertarget{classoptimalPlanner_a99a4e25f991be60cacc9dd74af0a41b8}{}\label{classoptimalPlanner_a99a4e25f991be60cacc9dd74af0a41b8}
+
+
+To move in respective location. 
+
+To move in respective direction to produce more children.
+
+
+\begin{DoxyParams}{Parameters}
+{\em std\+::pair} & location to be moved\\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+new location
+\end{DoxyReturn}
+
+\begin{DoxyParams}{Parameters}
+{\em position} & \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+new location of the child if robot moves 
+\end{DoxyReturn}
+\index{optimal\+Planner@{optimal\+Planner}!is\+Blocked@{is\+Blocked}}
+\index{is\+Blocked@{is\+Blocked}!optimal\+Planner@{optimal\+Planner}}
+\subsubsection[{\texorpdfstring{is\+Blocked(std\+::pair$<$ int, int $>$)}{isBlocked(std::pair< int, int >)}}]{\setlength{\rightskip}{0pt plus 5cm}bool optimal\+Planner\+::is\+Blocked (
+\begin{DoxyParamCaption}
+\item[{std\+::pair$<$ int, int $>$}]{position}
+\end{DoxyParamCaption}
+)}\hypertarget{classoptimalPlanner_affd923e57309f44ce1734b652b40103c}{}\label{classoptimalPlanner_affd923e57309f44ce1734b652b40103c}
+
+
+to check if the location has obstacle or not 
+
+To check if there is obstacle or not.
+
+
+\begin{DoxyParams}{Parameters}
+{\em std\+::pair$<$int,int$>$} & location coordinates\\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+true if it has value of 1(obstacle ),else false
+\end{DoxyReturn}
+
+\begin{DoxyParams}{Parameters}
+{\em position} & \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+true if obstacle ,false if not obstacle 
+\end{DoxyReturn}
+\index{optimal\+Planner@{optimal\+Planner}!is\+It\+Goal\+Yet@{is\+It\+Goal\+Yet}}
+\index{is\+It\+Goal\+Yet@{is\+It\+Goal\+Yet}!optimal\+Planner@{optimal\+Planner}}
+\subsubsection[{\texorpdfstring{is\+It\+Goal\+Yet(std\+::pair$<$ int, int $>$)}{isItGoalYet(std::pair< int, int >)}}]{\setlength{\rightskip}{0pt plus 5cm}bool optimal\+Planner\+::is\+It\+Goal\+Yet (
+\begin{DoxyParamCaption}
+\item[{std\+::pair$<$ int, int $>$}]{position}
+\end{DoxyParamCaption}
+)}\hypertarget{classoptimalPlanner_aa8e96d238d9d57f486453816d221df25}{}\label{classoptimalPlanner_aa8e96d238d9d57f486453816d221df25}
+
+
+To check if the location is goal or not. 
+
+Check for goal position.
+
+
+\begin{DoxyParams}{Parameters}
+{\em std\+::pair$<$int,int$>$} & location (y,x) coordinates\\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+true if its same as goal
+\end{DoxyReturn}
+
+\begin{DoxyParams}{Parameters}
+{\em position} & \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+bool 
+\end{DoxyReturn}
+\index{optimal\+Planner@{optimal\+Planner}!is\+Valid@{is\+Valid}}
+\index{is\+Valid@{is\+Valid}!optimal\+Planner@{optimal\+Planner}}
+\subsubsection[{\texorpdfstring{is\+Valid(std\+::pair$<$ int, int $>$)}{isValid(std::pair< int, int >)}}]{\setlength{\rightskip}{0pt plus 5cm}bool optimal\+Planner\+::is\+Valid (
+\begin{DoxyParamCaption}
+\item[{std\+::pair$<$ int, int $>$}]{position}
+\end{DoxyParamCaption}
+)}\hypertarget{classoptimalPlanner_a0b4a2dcda06b4f230aae5fcd056270d8}{}\label{classoptimalPlanner_a0b4a2dcda06b4f230aae5fcd056270d8}
+
+
+To check if the given valid by checking boundaries. 
+
+To check Validity by checking if its located in map or not.
+
+
+\begin{DoxyParams}{Parameters}
+{\em std\+::pair$<$int,int$>$} & location whose validity needs to checked\\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+false if not valid , else true
+\end{DoxyReturn}
+
+\begin{DoxyParams}{Parameters}
+{\em position} & \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+false if not located inside map else true 
+\end{DoxyReturn}
+\index{optimal\+Planner@{optimal\+Planner}!move\+And\+Update\+Nodes@{move\+And\+Update\+Nodes}}
+\index{move\+And\+Update\+Nodes@{move\+And\+Update\+Nodes}!optimal\+Planner@{optimal\+Planner}}
+\subsubsection[{\texorpdfstring{move\+And\+Update\+Nodes(std\+::pair$<$ int, int $>$, std\+::pair$<$ int, int $>$)}{moveAndUpdateNodes(std::pair< int, int >, std::pair< int, int >)}}]{\setlength{\rightskip}{0pt plus 5cm}void optimal\+Planner\+::move\+And\+Update\+Nodes (
+\begin{DoxyParamCaption}
+\item[{std\+::pair$<$ int, int $>$}]{child, }
+\item[{std\+::pair$<$ int, int $>$}]{parent}
+\end{DoxyParamCaption}
+)}\hypertarget{classoptimalPlanner_a5f886dd1ad67dd6a8f0d747c316830e2}{}\label{classoptimalPlanner_a5f886dd1ad67dd6a8f0d747c316830e2}
+
+
+Update node informations as we explore the map with all costs. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em std\+::pair} & child node location \\
+\hline
+{\em std\+::pair} & parent node location\\
+\hline
+{\em child} & \\
+\hline
+{\em parent} & \\
+\hline
+\end{DoxyParams}
+\index{optimal\+Planner@{optimal\+Planner}!search@{search}}
+\index{search@{search}!optimal\+Planner@{optimal\+Planner}}
+\subsubsection[{\texorpdfstring{search(std\+::vector$<$ std\+::vector$<$ int $>$$>$, std\+::pair$<$ int, int $>$, std\+::pair$<$ int, int $>$)}{search(std::vector< std::vector< int >>, std::pair< int, int >, std::pair< int, int >)}}]{\setlength{\rightskip}{0pt plus 5cm}std\+::stack$<$ std\+::pair$<$ int, int $>$ $>$ optimal\+Planner\+::search (
+\begin{DoxyParamCaption}
+\item[{std\+::vector$<$ std\+::vector$<$ int $>$$>$}]{world\+\_\+map, }
+\item[{std\+::pair$<$ int, int $>$}]{robot\+\_\+pose, }
+\item[{std\+::pair$<$ int, int $>$}]{goal\+\_\+pose}
+\end{DoxyParamCaption}
+)}\hypertarget{classoptimalPlanner_a234f4f638c9fa4fb3eb539a4c5f715a5}{}\label{classoptimalPlanner_a234f4f638c9fa4fb3eb539a4c5f715a5}
+
+
+Searches the path using astar algorithm. 
+
+TO search using Astar Algorithm.
+
+
+\begin{DoxyParams}{Parameters}
+{\em std\+::vector$<$std\+::vector$<$int,int$>$$>$} & world map \\
+\hline
+{\em std\+::pair} & robot start location \\
+\hline
+{\em std\+::pair} & robot goal location\\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+stack containing path positions
+\end{DoxyReturn}
+
+\begin{DoxyParams}{Parameters}
+{\em world\+\_\+map} & \\
+\hline
+{\em robot\+\_\+pose} & \\
+\hline
+{\em goal\+\_\+pose} & \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+Path 
+\end{DoxyReturn}
+\index{optimal\+Planner@{optimal\+Planner}!track\+Path@{track\+Path}}
+\index{track\+Path@{track\+Path}!optimal\+Planner@{optimal\+Planner}}
+\subsubsection[{\texorpdfstring{track\+Path()}{trackPath()}}]{\setlength{\rightskip}{0pt plus 5cm}void optimal\+Planner\+::track\+Path (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+)}\hypertarget{classoptimalPlanner_a9a6892e6beceed5ca588d1bf46b7d40b}{}\label{classoptimalPlanner_a9a6892e6beceed5ca588d1bf46b7d40b}
+
+
+To track the path by tracking individual parents. 
+
+Find Path based on parents of each node backwards. 
+
+The documentation for this class was generated from the following files\+:\begin{DoxyCompactItemize}
+\item 
+/home/bob/\+Bob\+\_\+old/\+Brain/\+Discrete\+\_\+\+Planners/include/\hyperlink{optimalPlanner_8h}{optimal\+Planner.\+h}\item 
+/home/bob/\+Bob\+\_\+old/\+Brain/\+Discrete\+\_\+\+Planners/app/\hyperlink{optimalPlanner_8cpp}{optimal\+Planner.\+cpp}\end{DoxyCompactItemize}

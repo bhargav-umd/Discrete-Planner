@@ -1,0 +1,315 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+
+<html lang="en">
+
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <title>LCOV - coverage.info.cleaned - include/optimalPlanner.h</title>
+  <link rel="stylesheet" type="text/css" href="../gcov.css">
+</head>
+
+<body>
+
+  <table width="100%" border=0 cellspacing=0 cellpadding=0>
+    <tr><td class="title">LCOV - code coverage report</td></tr>
+    <tr><td class="ruler"><img src="../glass.png" width=3 height=3 alt=""></td></tr>
+
+    <tr>
+      <td width="100%">
+        <table cellpadding=1 border=0 width="100%">
+          <tr>
+            <td width="10%" class="headerItem">Current view:</td>
+            <td width="35%" class="headerValue"><a href="../index.html">top level</a> - <a href="index.html">include</a> - optimalPlanner.h<span style="font-size: 80%;"> (source / <a href="optimalPlanner.h.func-sort-c.html">functions</a>)</span></td>
+            <td width="5%"></td>
+            <td width="15%"></td>
+            <td width="10%" class="headerCovTableHead">Hit</td>
+            <td width="10%" class="headerCovTableHead">Total</td>
+            <td width="15%" class="headerCovTableHead">Coverage</td>
+          </tr>
+          <tr>
+            <td class="headerItem">Test:</td>
+            <td class="headerValue">coverage.info.cleaned</td>
+            <td></td>
+            <td class="headerItem">Lines:</td>
+            <td class="headerCovTableEntry">1</td>
+            <td class="headerCovTableEntry">1</td>
+            <td class="headerCovTableEntryHi">100.0 %</td>
+          </tr>
+          <tr>
+            <td class="headerItem">Date:</td>
+            <td class="headerValue">2019-04-04 23:33:50</td>
+            <td></td>
+            <td class="headerItem">Functions:</td>
+            <td class="headerCovTableEntry">1</td>
+            <td class="headerCovTableEntry">1</td>
+            <td class="headerCovTableEntryHi">100.0 %</td>
+          </tr>
+          <tr><td><img src="../glass.png" width=3 height=3 alt=""></td></tr>
+        </table>
+      </td>
+    </tr>
+
+    <tr><td class="ruler"><img src="../glass.png" width=3 height=3 alt=""></td></tr>
+  </table>
+
+  <table cellpadding=0 cellspacing=0 border=0>
+    <tr>
+      <td><br></td>
+    </tr>
+    <tr>
+      <td>
+<pre class="sourceHeading">          Line data    Source code</pre>
+<pre class="source">
+<a name="1"><span class="lineNum">       1 </span>            : /* Copyright (C)</a>
+<span class="lineNum">       2 </span>            :  * 2019 - Bhargav Dandamudi
+<span class="lineNum">       3 </span>            :  *
+<span class="lineNum">       4 </span>            :  * MIT License
+<span class="lineNum">       5 </span>            :  *
+<span class="lineNum">       6 </span>            :  * Permission is hereby granted, free of charge, to any person
+<span class="lineNum">       7 </span>            :  * obtaining a copy of this software and associated documentation
+<span class="lineNum">       8 </span>            :  * files (the 'Software'), to deal in the Software without
+<span class="lineNum">       9 </span>            :  * restriction, including without limitation the rights
+<span class="lineNum">      10 </span>            :  * to use, copy, modify, merge, publish, distribute,
+<span class="lineNum">      11 </span>            :  * sublicense, and/or sell copies of the Software, and to permit
+<span class="lineNum">      12 </span>            :  * persons to whom the Software is furnished to do so,subject to
+<span class="lineNum">      13 </span>            :  * the following conditions:
+<span class="lineNum">      14 </span>            :  * The above copyright notice and this permission notice shall
+<span class="lineNum">      15 </span>            :  * be included in all copies or substantial portions of the Software.
+<span class="lineNum">      16 </span>            :  * THE SOFTWARE IS PROVIDED ''AS IS'', WITHOUT WARRANTY OF ANY KIND,
+<span class="lineNum">      17 </span>            :  * EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES
+<span class="lineNum">      18 </span>            :  * OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT.
+<span class="lineNum">      19 </span>            :  * IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR
+<span class="lineNum">      20 </span>            :  * ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT,
+<span class="lineNum">      21 </span>            :  * TORT OR OTHERWISE, ARISING FROM,OUT OF OR IN CONNECTION WITH
+<span class="lineNum">      22 </span>            :  * THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
+<span class="lineNum">      23 </span>            :  *
+<span class="lineNum">      24 </span>            :  */
+<span class="lineNum">      25 </span>            : /**
+<span class="lineNum">      26 </span>            :  * @file optimalPlanner.h
+<span class="lineNum">      27 </span>            :  * @brief  Optimal Planner using astar algorithm to reach goal
+<span class="lineNum">      28 </span>            :  * @author Bhargav Dandamudi
+<span class="lineNum">      29 </span>            :  * @version 1
+<span class="lineNum">      30 </span>            :  * @date 2019-04-04
+<span class="lineNum">      31 </span>            :  */
+<span class="lineNum">      32 </span>            : #include &quot;./node.h&quot;
+<span class="lineNum">      33 </span>            : #include &lt;bits/stdc++.h&gt;
+<span class="lineNum">      34 </span>            : #include &lt;cmath&gt;
+<span class="lineNum">      35 </span>            : #include &lt;iostream&gt;
+<span class="lineNum">      36 </span>            : #include &lt;queue&gt;
+<span class="lineNum">      37 </span>            : #include &lt;stdlib.h&gt;
+<span class="lineNum">      38 </span>            : #include &lt;utility&gt;
+<span class="lineNum">      39 </span>            : #include &lt;vector&gt;
+<span class="lineNum">      40 </span>            : // defining types for ease in usage for programs
+<span class="lineNum">      41 </span>            : typedef std::pair&lt;double, std::pair&lt;int, int&gt;&gt; DoublePair;
+<span class="lineNum">      42 </span>            : 
+<span class="lineNum">      43 </span>            : /* ----------------------------------------------------------------*/
+<span class="lineNum">      44 </span>            : /**
+<span class="lineNum">      45 </span>            :  * @brief  Optimal Planner class members declaration
+<span class="lineNum">      46 </span>            :  *          we are using Astar algorithm for finding optimal path
+<span class="lineNum">      47 </span>            :  *
+<a name="48"><span class="lineNum">      48 </span>            :  */</a>
+<span class="lineNum">      49 </span>            : /* ----------------------------------------------------------------*/
+<span class="lineNum">      50 </span><span class="lineCov">          1 : class optimalPlanner {</span>
+<span class="lineNum">      51 </span>            : public:
+<span class="lineNum">      52 </span>            :   /* ----------------------------------------------------------------*/
+<span class="lineNum">      53 </span>            :   /**
+<span class="lineNum">      54 </span>            :    * @brief Default Constructor for the class
+<span class="lineNum">      55 </span>            :    */
+<span class="lineNum">      56 </span>            :   /* ----------------------------------------------------------------*/
+<span class="lineNum">      57 </span>            :   optimalPlanner();
+<span class="lineNum">      58 </span>            :   /* ----------------------------------------------------------------*/
+<span class="lineNum">      59 </span>            :   /**
+<span class="lineNum">      60 </span>            :    * @brief  Parameterised Constructor with given inputs
+<span class="lineNum">      61 </span>            :    *
+<span class="lineNum">      62 </span>            :    * @param std::vector&lt;std::vector&lt;int&gt;&gt; world map
+<span class="lineNum">      63 </span>            :    * @param std::pair  robot start location
+<span class="lineNum">      64 </span>            :    * @param std::pair  robot goal location
+<span class="lineNum">      65 </span>            :    */
+<span class="lineNum">      66 </span>            :   /* ----------------------------------------------------------------*/
+<span class="lineNum">      67 </span>            :   optimalPlanner(std::vector&lt;std::vector&lt;int&gt;&gt;, std::pair&lt;int, int&gt;,
+<span class="lineNum">      68 </span>            :                  std::pair&lt;int, int&gt;);
+<span class="lineNum">      69 </span>            : 
+<span class="lineNum">      70 </span>            :   /* ----------------------------------------------------------------*/
+<span class="lineNum">      71 </span>            :   /**
+<span class="lineNum">      72 </span>            :    * @brief  Searches the path using astar algorithm
+<span class="lineNum">      73 </span>            :    *
+<span class="lineNum">      74 </span>            :    * @param std::vector&lt;std::vector&lt;int,int&gt;&gt; world map
+<span class="lineNum">      75 </span>            :    * @param std::pair robot start location
+<span class="lineNum">      76 </span>            :    * @param std::pair robot goal location
+<span class="lineNum">      77 </span>            :    *
+<span class="lineNum">      78 </span>            :    * @return stack containing path positions
+<span class="lineNum">      79 </span>            :    */
+<span class="lineNum">      80 </span>            :   /* ----------------------------------------------------------------*/
+<span class="lineNum">      81 </span>            :   std::stack&lt;std::pair&lt;int, int&gt;&gt; search(std::vector&lt;std::vector&lt;int&gt;&gt;,
+<span class="lineNum">      82 </span>            :                                          std::pair&lt;int, int&gt;,
+<span class="lineNum">      83 </span>            :                                          std::pair&lt;int, int&gt;);
+<span class="lineNum">      84 </span>            : 
+<span class="lineNum">      85 </span>            :   /* ----------------------------------------------------------------*/
+<span class="lineNum">      86 </span>            :   /**
+<span class="lineNum">      87 </span>            :    * @brief  getter function to get start location of robot
+<span class="lineNum">      88 </span>            :    *
+<span class="lineNum">      89 </span>            :    * @return robot starting location
+<span class="lineNum">      90 </span>            :    */
+<span class="lineNum">      91 </span>            :   /* ----------------------------------------------------------------*/
+<span class="lineNum">      92 </span>            :   std::pair&lt;int, int&gt; getStartingPoint();
+<span class="lineNum">      93 </span>            :   /* ----------------------------------------------------------------*/
+<span class="lineNum">      94 </span>            :   /**
+<span class="lineNum">      95 </span>            :    * @brief gettter function for Goal Point
+<span class="lineNum">      96 </span>            :    *
+<span class="lineNum">      97 </span>            :    * @return destination of the robot
+<span class="lineNum">      98 </span>            :    */
+<span class="lineNum">      99 </span>            :   /* ----------------------------------------------------------------*/
+<span class="lineNum">     100 </span>            :   std::pair&lt;int, int&gt; getGoalPoint();
+<span class="lineNum">     101 </span>            :   /* ----------------------------------------------------------------*/
+<span class="lineNum">     102 </span>            :   /**
+<span class="lineNum">     103 </span>            :    * @brief  getter fucntion for X length
+<span class="lineNum">     104 </span>            :    *
+<span class="lineNum">     105 </span>            :    * @return  x-length of the world map
+<span class="lineNum">     106 </span>            :    */
+<span class="lineNum">     107 </span>            :   /* ----------------------------------------------------------------*/
+<span class="lineNum">     108 </span>            :   int getXLength();
+<span class="lineNum">     109 </span>            :   /* ----------------------------------------------------------------*/
+<span class="lineNum">     110 </span>            :   /**
+<span class="lineNum">     111 </span>            :    * @brief  getter function for Y Length
+<span class="lineNum">     112 </span>            :    *
+<span class="lineNum">     113 </span>            :    * @return  depth of the world map
+<span class="lineNum">     114 </span>            :    */
+<span class="lineNum">     115 </span>            :   /* ----------------------------------------------------------------*/
+<span class="lineNum">     116 </span>            :   int getYLength();
+<span class="lineNum">     117 </span>            :   /* ----------------------------------------------------------------*/
+<span class="lineNum">     118 </span>            :   /**
+<span class="lineNum">     119 </span>            :    * @brief Node INformation stores all nodes at respective locations
+<span class="lineNum">     120 </span>            :    *
+<span class="lineNum">     121 </span>            :    * @param std::pair&lt;int,int&gt; node information needed
+<span class="lineNum">     122 </span>            :    *
+<span class="lineNum">     123 </span>            :    * @return node at respective location
+<span class="lineNum">     124 </span>            :    */
+<span class="lineNum">     125 </span>            :   /* ----------------------------------------------------------------*/
+<span class="lineNum">     126 </span>            :   node getNodeInformation(std::pair&lt;int, int&gt;);
+<span class="lineNum">     127 </span>            : 
+<span class="lineNum">     128 </span>            :   /* ----------------------------------------------------------------*/
+<span class="lineNum">     129 </span>            :   /**
+<span class="lineNum">     130 </span>            :    * @brief  To check if the given valid by checking boundaries
+<span class="lineNum">     131 </span>            :    *
+<span class="lineNum">     132 </span>            :    * @param std::pair&lt;int,int&gt; location whose validity needs to checked
+<span class="lineNum">     133 </span>            :    *
+<span class="lineNum">     134 </span>            :    * @return false if not valid , else true
+<span class="lineNum">     135 </span>            :    */
+<span class="lineNum">     136 </span>            :   /* ----------------------------------------------------------------*/
+<span class="lineNum">     137 </span>            :   bool isValid(std::pair&lt;int, int&gt;);
+<span class="lineNum">     138 </span>            :   /* ----------------------------------------------------------------*/
+<span class="lineNum">     139 </span>            :   /**
+<span class="lineNum">     140 </span>            :    * @brief  to check if the location has obstacle or not
+<span class="lineNum">     141 </span>            :    *
+<span class="lineNum">     142 </span>            :    * @param std::pair&lt;int,int&gt; location coordinates
+<span class="lineNum">     143 </span>            :    *
+<span class="lineNum">     144 </span>            :    * @return true if it has value of 1(obstacle ),else false
+<span class="lineNum">     145 </span>            :    */
+<span class="lineNum">     146 </span>            :   /* ----------------------------------------------------------------*/
+<span class="lineNum">     147 </span>            :   bool isBlocked(std::pair&lt;int, int&gt;);
+<span class="lineNum">     148 </span>            :   /* ----------------------------------------------------------------*/
+<span class="lineNum">     149 </span>            :   /**
+<span class="lineNum">     150 </span>            :    * @brief  To check if the location is goal or not
+<span class="lineNum">     151 </span>            :    *
+<span class="lineNum">     152 </span>            :    * @param std::pair&lt;int, int&gt; location (y,x) coordinates
+<span class="lineNum">     153 </span>            :    *
+<span class="lineNum">     154 </span>            :    * @return true if its same as goal
+<span class="lineNum">     155 </span>            :    */
+<span class="lineNum">     156 </span>            :   /* ----------------------------------------------------------------*/
+<span class="lineNum">     157 </span>            :   bool isItGoalYet(std::pair&lt;int, int&gt;);
+<span class="lineNum">     158 </span>            : 
+<span class="lineNum">     159 </span>            :   /* ----------------------------------------------------------------*/
+<span class="lineNum">     160 </span>            :   /**
+<span class="lineNum">     161 </span>            :    * @brief  To calculate H Cost, i.e, cost to reach the goal
+<span class="lineNum">     162 </span>            :    *
+<span class="lineNum">     163 </span>            :    * @param std::pair&lt;int,int&gt; location coordinates
+<span class="lineNum">     164 </span>            :    *
+<span class="lineNum">     165 </span>            :    * @return H cost of the location .
+<span class="lineNum">     166 </span>            :    */
+<span class="lineNum">     167 </span>            :   /* ----------------------------------------------------------------*/
+<span class="lineNum">     168 </span>            :   double calculateHCost(std::pair&lt;int, int&gt;);
+<span class="lineNum">     169 </span>            :   /* ----------------------------------------------------------------*/
+<span class="lineNum">     170 </span>            :   /**
+<span class="lineNum">     171 </span>            :    * @brief  To track the path by tracking individual parents
+<span class="lineNum">     172 </span>            :    */
+<span class="lineNum">     173 </span>            :   /* ----------------------------------------------------------------*/
+<span class="lineNum">     174 </span>            :   void trackPath();
+<span class="lineNum">     175 </span>            : 
+<span class="lineNum">     176 </span>            :   /* ----------------------------------------------------------------*/
+<span class="lineNum">     177 </span>            :   /**
+<span class="lineNum">     178 </span>            :    * @brief  Update node informations as we explore the map with all costs
+<span class="lineNum">     179 </span>            :    *
+<span class="lineNum">     180 </span>            :    * @param std::pair child node location
+<span class="lineNum">     181 </span>            :    * @param std::pair parent node location
+<span class="lineNum">     182 </span>            :    */
+<span class="lineNum">     183 </span>            :   /* ----------------------------------------------------------------*/
+<span class="lineNum">     184 </span>            :   void moveAndUpdateNodes(std::pair&lt;int, int&gt;, std::pair&lt;int, int&gt;);
+<span class="lineNum">     185 </span>            : 
+<span class="lineNum">     186 </span>            :   /* ----------------------------------------------------------------*/
+<span class="lineNum">     187 </span>            :   /**
+<span class="lineNum">     188 </span>            :    * @brief   To move in respective location
+<span class="lineNum">     189 </span>            :    *
+<span class="lineNum">     190 </span>            :    * @param std::pair location to be moved
+<span class="lineNum">     191 </span>            :    *
+<span class="lineNum">     192 </span>            :    * @return new location
+<span class="lineNum">     193 </span>            :    */
+<span class="lineNum">     194 </span>            :   /* ----------------------------------------------------------------*/
+<span class="lineNum">     195 </span>            :   std::pair&lt;int, int&gt; goTop(std::pair&lt;int, int&gt;);
+<span class="lineNum">     196 </span>            :   /* ----------------------------------------------------------------*/
+<span class="lineNum">     197 </span>            :   /**
+<span class="lineNum">     198 </span>            :    * @brief   To move in respective location
+<span class="lineNum">     199 </span>            :    *
+<span class="lineNum">     200 </span>            :    * @param std::pair location to be moved
+<span class="lineNum">     201 </span>            :    *
+<span class="lineNum">     202 </span>            :    * @return new location
+<span class="lineNum">     203 </span>            :    */
+<span class="lineNum">     204 </span>            :   /* ----------------------------------------------------------------*/
+<span class="lineNum">     205 </span>            :   std::pair&lt;int, int&gt; goLeft(std::pair&lt;int, int&gt;);
+<span class="lineNum">     206 </span>            :   /* ----------------------------------------------------------------*/
+<span class="lineNum">     207 </span>            :   /**
+<span class="lineNum">     208 </span>            :    * @brief   To move in respective location
+<span class="lineNum">     209 </span>            :    *
+<span class="lineNum">     210 </span>            :    * @param std::pair location to be moved
+<span class="lineNum">     211 </span>            :    *
+<span class="lineNum">     212 </span>            :    * @return new location
+<span class="lineNum">     213 </span>            :    */
+<span class="lineNum">     214 </span>            :   /* ----------------------------------------------------------------*/
+<span class="lineNum">     215 </span>            :   std::pair&lt;int, int&gt; goBottom(std::pair&lt;int, int&gt;);
+<span class="lineNum">     216 </span>            :   /* ----------------------------------------------------------------*/
+<span class="lineNum">     217 </span>            :   /**
+<span class="lineNum">     218 </span>            :    * @brief   To move in respective location
+<span class="lineNum">     219 </span>            :    *
+<span class="lineNum">     220 </span>            :    * @param std::pair location to be moved
+<span class="lineNum">     221 </span>            :    *
+<span class="lineNum">     222 </span>            :    * @return new location
+<span class="lineNum">     223 </span>            :    */
+<span class="lineNum">     224 </span>            :   /* ----------------------------------------------------------------*/
+<span class="lineNum">     225 </span>            :   std::pair&lt;int, int&gt; goRight(std::pair&lt;int, int&gt;);
+<span class="lineNum">     226 </span>            : 
+<span class="lineNum">     227 </span>            : private:
+<span class="lineNum">     228 </span>            :   std::pair&lt;int, int&gt; start_position_;
+<span class="lineNum">     229 </span>            :   std::pair&lt;int, int&gt; goal_position_;
+<span class="lineNum">     230 </span>            :   bool found_goal;
+<span class="lineNum">     231 </span>            :   std::vector&lt;std::vector&lt;int&gt;&gt; world_map_;
+<span class="lineNum">     232 </span>            :   int x_length;
+<span class="lineNum">     233 </span>            :   int y_length;
+<span class="lineNum">     234 </span>            :   std::stack&lt;std::pair&lt;int, int&gt;&gt; path_;
+<span class="lineNum">     235 </span>            :   std::vector&lt;std::vector&lt;node&gt;&gt; node_information;
+<span class="lineNum">     236 </span>            :   std::vector&lt;std::vector&lt;bool&gt;&gt; closed_list; // to store visited nodes
+<span class="lineNum">     237 </span>            :   std::set&lt;DoublePair&gt; open_list; // to store all possible nodes which needs
+<span class="lineNum">     238 </span>            :                                   // to visited while exploring the map
+<span class="lineNum">     239 </span>            : };
+</pre>
+      </td>
+    </tr>
+  </table>
+  <br>
+
+  <table width="100%" border=0 cellspacing=0 cellpadding=0>
+    <tr><td class="ruler"><img src="../glass.png" width=3 height=3 alt=""></td></tr>
+    <tr><td class="versionInfo">Generated by: <a href="http://ltp.sourceforge.net/coverage/lcov.php" target="_parent">LCOV version 1.12</a></td></tr>
+  </table>
+  <br>
+
+</body>
+</html>
