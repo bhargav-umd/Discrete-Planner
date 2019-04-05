@@ -40,12 +40,13 @@ C) For each of the 4 nodes adjacent to this current node …
 
 If it is not walkable or if it is on the closed list, ignore it. Otherwise do the following.
 If it isn’t on the open list, add it to the open list. Make the current square the parent of this square. Record the F, G, and H costs of the square.
-If it is on the open list already, check to see if this path to that square is better, using G cost as the measure. A lower G cost means that this is a better path. If so, change the parent of the square to the current square, and recalculate the G and F scores of the square. If you are keeping your open list sorted by F score, you may need to resort the list to account for the change.
-D) Stop when you:
+If it is on the open list already, check to see if this path to that square is better, using G cost as the measure. A lower G cost means that this is a better path. If so, change the parent of the square to the current square, and recalculate the G and F scores of the square. If you are keeping your open list sorted by F score, you may need to resort the list to account for the change.  
 
+D) Stop when you:  
 Add the goal node to the closed list, in which case the path has been found, or
-Fail to find the goal node , and the open list is empty. In this case, there is no path.
-3. Save the path. Working backwards from the goal node , go from each node to its parent node until you reach the starting node. That is your path.
+Fail to find the goal node , and the open list is empty. In this case, there is no path.  
+
+3.Save the path. Working backwards from the goal node , go from each node to its parent node until you reach the starting node. That is your path.
 
 ## Performance Comparision
 
@@ -68,8 +69,14 @@ mkdir build
 cd build
 cmake ..
 make
-Run tests: ./test/cpp-test
-Run program: ./app/shell-app
+```
+### Run tests:
+```
+./test/cpp-test
+```
+### Run program:
+```
+ ./app/shell-app
 ```
 
 ## Building for code coverage (for assignments beginning in Week 4)
@@ -92,8 +99,8 @@ doxygen -g <config_file_name>
 ```
 Inside the configuration file, update:
 ```
-PROJECT_NAME = 'your project name'
-INPUT = ../app ../include ../test
+PROJECT_NAME = 'Discrete Planner'
+INPUT = ../app ../include ../test ../
 ```
 Run and generate the documents by running the next command:
 ```

@@ -1,0 +1,85 @@
+\href{https://travis-ci.org/dpiet/cpp-boilerplate}{\tt } \subsection*{\href{https://coveralls.io/github/dpiet/cpp-boilerplate?branch=master}{\tt } }
+
+\subsection*{Overview}
+
+To extend a library of discrete motion planners for an holonomic robot. The robot moves in a static and flat environment and must find a path to a goal. There are mainly two planners implemented in the program.
+\begin{DoxyEnumerate}
+\item Random Planner
+\item Optimal Planner
+\end{DoxyEnumerate}
+
+● Random planner The random planner tries to find a path to the goal by randomly moving in the environment (only orthogonal moves are legal). If the planner can not find an acceptable solution in less than max\+\_\+step\+\_\+number, the search should fail. The random planner, while being erratic, has a short memory, and it will never attempt to visit a cell that was visited in the last sqrt(max\+\_\+step\+\_\+number)​ steps except if this is the only available option. -\/$>$ Move randomly -\/$>$ If all neighbors are visited already and only option to move is to move onto already visited block,then visit the block which has been visited already. Random planners try to make a move randomly to figure out a path for the goal pose. The random planner has constraints of memory and finite time.
+
+● Optimal planner\+:A planner that goes to the goal with the shortest (non-\/colliding) path. Again, only orthogonal moves are legal.\+Implemented Astar algorithm, as it gives the optimal path.
+
+Astar Working(also explained well in code)\+:
+
+
+\begin{DoxyEnumerate}
+\item Add the starting node to the open list.
+\item Repeat the following\+:
+\end{DoxyEnumerate}
+
+A) Look for the lowest F cost square on the open list. We refer to this as the current square.
+
+B). Switch it to the closed list.
+
+C) For each of the 4 nodes adjacent to this current node …
+
+If it is not walkable or if it is on the closed list, ignore it. Otherwise do the following. If it isn’t on the open list, add it to the open list. Make the current square the parent of this square. Record the F, G, and H costs of the square. If it is on the open list already, check to see if this path to that square is better, using G cost as the measure. A lower G cost means that this is a better path. If so, change the parent of the square to the current square, and recalculate the G and F scores of the square. If you are keeping your open list sorted by F score, you may need to resort the list to account for the change.
+
+D) Stop when you\+: Add the goal node to the closed list, in which case the path has been found, or Fail to find the goal node , and the open list is empty. In this case, there is no path.
+
+3.\+Save the path. Working backwards from the goal node , go from each node to its parent node until you reach the starting node. That is your path.
+
+\subsection*{Performance Comparision}
+
+\begin{DoxyVerb}-> Random PLanner is slower to run compared to optimal Planner. As there is time and 
+    memory constraint on it.
+\end{DoxyVerb}
+ Time Complexity of Random Planner depends on random number generation, world size and number of steps to be taken. It takes time based on world size (possibly bigger than n i.\+e, number of steps aken), we check sqrt(n) memor. We can possibly conclude the order to be O(n$^\wedge$(3/2)) \begin{DoxyVerb}-> Optimal Planner (Astar here in case) is lot faster than the random Planner. 
+\end{DoxyVerb}
+ Time Complexity of optimal planner depends on heuristics which is chosen as Manhattan distance. Manhattan distance is sum of absolute difference of x coordinates and y coordinates of current point and goal point. Here its O(\+Manhattan distance from start to goal).
+
+\#\# Standard install via command-\/line 
+\begin{DoxyCode}
+1 cd <path to repository>
+2 mkdir build
+3 cd build
+4 cmake ..
+5 make
+\end{DoxyCode}
+ \#\#\# Run tests\+: 
+\begin{DoxyCode}
+1 ./test/cpp-test
+\end{DoxyCode}
+ \#\#\# Run program\+: 
+\begin{DoxyCode}
+1 ./app/shell-app
+\end{DoxyCode}
+
+
+\#\# Building for code coverage (for assignments beginning in Week 4) 
+\begin{DoxyCode}
+1 sudo apt-get install lcov
+2 cmake -D COVERAGE=ON -D CMAKE\_BUILD\_TYPE=Debug ../
+3 make
+4 make code\_coverage
+\end{DoxyCode}
+ This generates a index.\+html page in the build/coverage sub-\/directory that can be viewed locally in a web browser.
+
+\subsection*{Doxygen Documentation}
+
+To generate Doxygen Documentation in H\+T\+ML and La\+T\+EX, follow the next steps\+: 
+\begin{DoxyCode}
+1 cd <path to repository>
+2 mkdir <documentation\_folder\_name>
+3 cd <documentation\_folder\_name>
+4 doxygen -g <config\_file\_name>
+\end{DoxyCode}
+ Inside the configuration file, update\+: 
+\begin{DoxyCode}
+1 PROJECT\_NAME = 'Discrete Planner'
+2 INPUT = ../app ../include ../test ../
+\end{DoxyCode}
+ Run and generate the documents by running the next command\+: ``` doxygen $<$config\+\_\+file\+\_\+name$>$ ````````` Use file Explorer and Open html/index.\+html file to see the doxygen documentation in web browser. 
